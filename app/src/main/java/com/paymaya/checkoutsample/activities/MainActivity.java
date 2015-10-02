@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = MainActivity.class.getSimpleName();
 
-  private static final String CHECKOUT_URL = "https://sandbox-checkout-api.paymaya.com/v1/checkouts";
+  private static final String CHECKOUT_API_URL = "https://sandbox-checkout-api.paymaya.com/v1/checkouts";
   private static final String CLIENT_KEY = "8510f691-8c0b-4f28-bfa0-bcced0cb0fd2";
   private static final String CLIENT_SECRET = "";
 
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
       ApiRequest apiRequest = new ApiRequest();
 
       try {
-        return apiRequest.post(CHECKOUT_URL, requestHeaders, checkoutPayload.getPayload());
+        return apiRequest.post(CHECKOUT_API_URL, requestHeaders, checkoutPayload.getPayload());
       }
       catch( MalformedURLException e ) {
         Log.e(TAG, e.getMessage());
@@ -130,10 +128,15 @@ public class MainActivity extends AppCompatActivity {
         String redirectUrl = responseObject.getString("redirectUrl");
 
         final Intent checkoutWebActivityIntent = new Intent(MainActivity.this, PayMayaCheckoutWebViewActivity.class);
+
+        /**
+         * Pass the URLs that we will monitor in the WebView
+         */
         checkoutWebActivityIntent.putExtra(PayMayaCheckoutWebViewActivity.KEY_REDIRECT_URL, redirectUrl);
         checkoutWebActivityIntent.putExtra(PayMayaCheckoutWebViewActivity.KEY_SUCCESS_URL, SUCCESS_URL);
         checkoutWebActivityIntent.putExtra(PayMayaCheckoutWebViewActivity.KEY_FAILURE_URL, FAILURE_URL);
         checkoutWebActivityIntent.putExtra(PayMayaCheckoutWebViewActivity.KEY_CANCEL_URL, CANCEL_URL);
+
         startActivityForResult(checkoutWebActivityIntent, CHECKOUT_REQUEST_CODE);
       }
       catch(JSONException e) {

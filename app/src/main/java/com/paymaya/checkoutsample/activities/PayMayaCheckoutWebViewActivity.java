@@ -41,6 +41,9 @@ public class PayMayaCheckoutWebViewActivity extends Activity {
 
     Intent passedIntent = getIntent();
     if (null != passedIntent) {
+      /**
+       * Catch the passed URLs from the MainActivity
+       */
       redirectUrl = passedIntent.getStringExtra(KEY_REDIRECT_URL);
       successUrl = passedIntent.getStringExtra(KEY_SUCCESS_URL);
       failureUrl = passedIntent.getStringExtra(KEY_FAILURE_URL);
@@ -52,20 +55,31 @@ public class PayMayaCheckoutWebViewActivity extends Activity {
       Log.d(TAG, "cancelUrl : " + cancelUrl);
     }
 
+    /**
+     * Initialize our custom WebViewClient that will detect
+     * the URLs that are being loaded in the WebView
+     */
     checkoutWebViewClient = new CheckoutWebViewClient();
     initializeViews();
   }
 
   private void initializeViews() {
     checkoutWebView = (WebView) findViewById(R.id.activity_paymaya_checkout_webview);
+
+    /**
+     * Inject our custom WebViewClient to the WebView
+     */
     checkoutWebView.setWebViewClient(checkoutWebViewClient);
 
-    checkoutWebView.getSettings().setAppCacheEnabled(true);
-    checkoutWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-    checkoutWebView.getSettings().setAppCachePath("/data/data/" + getPackageName() + "/cache");
+    /**
+     * Allow File Access and Javascript
+     */
     checkoutWebView.getSettings().setAllowFileAccess(true);
     checkoutWebView.getSettings().setJavaScriptEnabled(true);
 
+    /**
+     * Load the Checkout Page
+     */
     checkoutWebView.loadUrl(redirectUrl);
   }
 
@@ -76,24 +90,36 @@ public class PayMayaCheckoutWebViewActivity extends Activity {
       Log.i(TAG, "shouldOverrideUrlLoading");
       Log.d(TAG, "urlString : " + urlString);
 
+      /**
+       * URL loaded is the Success URL
+       */
       if (urlString.startsWith(successUrl)) {
         Intent intent = new Intent();
         setResult(Activity.RESULT_OK, intent);
         PayMayaCheckoutWebViewActivity.this.finish();
       }
 
+      /**
+       * URL loaded is the Cancel URL
+       */
       if (urlString.startsWith(cancelUrl)) {
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         PayMayaCheckoutWebViewActivity.this.finish();
       }
 
+      /**
+       * URL loaded is the Failure URL
+       */
       if (urlString.startsWith(failureUrl)) {
         Intent intent = new Intent();
         setResult(RESULT_FAILURE, intent);
         PayMayaCheckoutWebViewActivity.this.finish();
       }
 
+      /**
+       * Everything else just pass-through
+       */
       return super.shouldOverrideUrlLoading(view, urlString);
     }
 
