@@ -11,15 +11,28 @@ android {
     versionCode 1
     versionName "1.0"
   }
+
   buildTypes {
     release {
+      debuggable true
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
+
+  packagingOptions {
+    exclude 'AndroidManifest.xml'
   }
 }
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   compile 'com.android.support:appcompat-v7:23.0.1'
+  compile(name:'app-0.1.0-sandbox', ext:'aar')
+}
+
+repositories{
+  flatDir{
+    dirs 'libs'
+  }
 }

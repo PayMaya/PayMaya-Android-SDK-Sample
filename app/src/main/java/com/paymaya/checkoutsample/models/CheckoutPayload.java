@@ -1,17 +1,36 @@
 package com.paymaya.checkoutsample.models;
 
-import android.net.Uri;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.exceptions.PayMayaCheckoutException;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Address;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.AmountDetails;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Buyer;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Checkout;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Contact;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Item;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.ItemAmount;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.RedirectUrl;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.TotalAmount;
 
-import org.json.JSONArray;
+import android.util.Log;
+
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by samfrancisco on 10/1/15.
  */
 public class CheckoutPayload {
 
+  private static final String TAG = CheckoutPayload.class.getSimpleName();
+
   private JSONObject payload;
+  private Checkout checkout;
+
 
   public CheckoutPayload() {
 
@@ -25,8 +44,77 @@ public class CheckoutPayload {
     return this.payload;
   }
 
-  public void generateSamplePayload(String successUrl, String failureUrl, String cancelUrl)
-          throws JSONException {
+  public Checkout generateSamplePayload(String successUrl, String failureUrl, String cancelUrl) {
+    /**
+     * Total Amount
+     */
+    BigDecimal discount = BigDecimal.valueOf(300.00);
+    BigDecimal serviceCharge = BigDecimal.valueOf(50.00);
+    BigDecimal shippingFee = BigDecimal.valueOf(200.00);
+    BigDecimal tax = BigDecimal.valueOf(691.60);
+    BigDecimal subtotal = BigDecimal.valueOf(5763.30);
+    AmountDetails totalAmountDetails = new AmountDetails(discount, serviceCharge, shippingFee,
+            tax, subtotal);
+    TotalAmount totalAmount = new TotalAmount(BigDecimal.valueOf(6404.90), "PHP");
+    totalAmount.setAmountDetails(totalAmountDetails);
+
+
+    /**
+     * Buyer
+     */
+    Contact contact = new Contact("+63(2)1234567890", "paymayabuyer1@gmail.com");
+    String line1 = "9F Robinsons Cybergate 3";
+    String city = "Mandaluyong City";
+    String state = "Metro Manila";
+    String zipCode = "12345";
+    String countryCode = "PH";
+
+    Address shippingAddress = new Address(line1, city, state, zipCode, countryCode);
+    shippingAddress.setLine2("Pioneer Street");
+
+    line1 = "12F Ansons Bldg.";
+    city = "Pasig City";
+    state = "Metro Manila";
+    zipCode = "1605";
+    countryCode = "PH";
+    Address billingAddress = new Address(line1, city, state, zipCode, countryCode);
+    billingAddress.setLine2("23 ADB Avenue");
+
+    Buyer buyer = new Buyer("Juan", "dela", "Cruz");
+    buyer.setContact(contact);
+    buyer.setShippingAddress(shippingAddress);
+    buyer.setBillingAddress(billingAddress);
+    buyer.setIpAddress("125.60.148.241");
+
+
+    /**
+     * Items
+     */
+    AmountDetails item1AmountDetails = new AmountDetails();
+    item1AmountDetails.setDiscount(BigDecimal.valueOf(100.00));
+    item1AmountDetails.setSubtotal(BigDecimal.valueOf(1721.10));
+
+    ItemAmount item1ItemAmount = new ItemAmount(BigDecimal.valueOf(1621.10));
+    item1ItemAmount.setDetails(item1AmountDetails);
+    TotalAmount item1TotalAmount = new TotalAmount(BigDecimal.valueOf(4863.30), "PHP");
+
+    Item item1 = new Item("Canvas Slip Ons", BigDecimal.valueOf(3), item1TotalAmount);
+    item1.setSkuCode("CVG-096732");
+    item1.setDescription("Shoes");
+
+    List<Item> itemList = new ArrayList<>();
+    itemList.add(item1);
+
+    RedirectUrl redirectUrl = new RedirectUrl(successUrl, failureUrl, cancelUrl);
+
+    Checkout checkout = new Checkout(totalAmount, buyer, itemList, "000141386713", redirectUrl);
+
+    JSONObject payload = checkout.toJSON();
+    Log.i(TAG, payload.toString());
+
+    return checkout;
+
+    /*
     payload = new JSONObject();
 
     JSONObject totalAmount = new JSONObject();
@@ -105,6 +193,7 @@ public class CheckoutPayload {
     payload.put("isAutoRedirect", false);
       JSONObject metadata = new JSONObject();
     payload.put("metadata", metadata);
+    */
   }
 
   @Override

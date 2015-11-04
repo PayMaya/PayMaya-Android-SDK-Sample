@@ -14,6 +14,8 @@ import com.paymaya.checkoutsample.R;
 import com.paymaya.checkoutsample.models.CheckoutPayload;
 import com.paymaya.checkoutsample.network.ApiRequest;
 import com.paymaya.checkoutsample.network.ApiResponse;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.PayMayaCheckout;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Checkout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,13 +59,12 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         CheckoutPayload checkoutPayload = new CheckoutPayload();
-        try {
-          checkoutPayload.generateSamplePayload(SUCCESS_URL, FAILURE_URL, CANCEL_URL);
-          new CheckoutTask().execute(checkoutPayload, null, null);
-        }
-        catch( JSONException e ) {
-          Toast.makeText(MainActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+
+        Checkout payload = checkoutPayload.generateSamplePayload(SUCCESS_URL, FAILURE_URL, CANCEL_URL);
+//          new CheckoutTask().execute(checkoutPayload, null, null);
+        PayMayaCheckout payMayaCheckout = new PayMayaCheckout();
+        payMayaCheckout.execute(MainActivity.this, CHECKOUT_REQUEST_CODE, payload, CLIENT_KEY, CLIENT_SECRET);
+
       }
 
     });
