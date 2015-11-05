@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/paymaya_checkout_fragment_cart_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!--android:scrollbars="vertical"-->
+
+    <TextView
+        android:id="@+id/paymaya_checkout_fragment_cart_text_view_sub_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtotal: PHP 9878.67"
+        android:textSize="18dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/paymaya_checkout_fragment_cart_text_view_shipping_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shipping Fee: PHP 1189.13"
+        android:textSize="18dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/paymaya_checkout_fragment_cart_text_view_tax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tax: PHP 429.83"
+        android:textSize="18dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/paymaya_checkout_fragment_cart_text_view_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: PHP 12,456.83"
+        android:textSize="18dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"/>
+
+    <Button
+        android:id="@+id/paymaya_checkout_fragment_cart_button_continue"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Continue"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

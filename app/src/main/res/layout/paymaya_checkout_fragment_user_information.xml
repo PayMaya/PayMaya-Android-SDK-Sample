@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:id="@+id/pma_fragment_payment_scroll_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="56dp"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal Information"
+            android:textSize="16dp"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jade Antolin"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_middle_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nepomuceno"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Gaa"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Information"
+            android:textSize="16dp"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_mobile_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+639473371420"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="jngaa@voyagerinnovation.com"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address Information"
+            android:textSize="16dp"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="834 Tahimik St."/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delpan, Zaragosa"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manila"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Metro Manila"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_zip_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1012"/>
+
+        <EditText
+            android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_country_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PH"
+            android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/paymaya_checkout_fragment_user_information_button_checkout"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Checkout"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="paymaya_checkout_color_accent">#30AA83</color>
+    <color name="paymaya_checkout_color_primary">#2FA3E0</color>
+    <color name="paymaya_checkout_color_primary_dark">#1685BF</color>
+</resources>
