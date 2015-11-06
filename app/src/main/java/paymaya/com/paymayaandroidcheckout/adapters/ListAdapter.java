@@ -57,7 +57,8 @@ public class ListAdapter extends BaseAdapter {
         }
         Log.d("@ListAdapter", "name = " + item.getName());
         holder.getTextViewName().setText(item.getName());
-        holder.getTextViewPrice().setText(item.getTotalAmount().getValue().toString());
+        holder.getTextViewPrice().setText("Quantity :" + item.getQuantity()
+                 + " Total Amount: " + item.getTotalAmount().getValue().toString());
         return view;
     }
 }

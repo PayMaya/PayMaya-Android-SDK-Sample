@@ -51,6 +51,14 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
 
     private List<Item> mItemList = new ArrayList<>();
 
+    public double getTotal() {
+        double total = 0.0;
+        for (Item item : mItemList) {
+            total = total + item.getTotalAmount().getValue().doubleValue();
+        }
+        return total;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +84,7 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
     public void onButtonCheckout(Buyer buyer) {
         RedirectUrl redirectUrl = new RedirectUrl(SUCCESS_URL, FAILURE_URL, CANCEL_URL);
 
-        double total = 0.0;
-        for (Item item : mItemList) {
-            total = total + item.getTotalAmount().getValue().doubleValue();
-        }
-
-        TotalAmount totalAmount = new TotalAmount(BigDecimal.valueOf(total), CHECKOUT_CURRENCY);
+        TotalAmount totalAmount = new TotalAmount(BigDecimal.valueOf(getTotal()), CHECKOUT_CURRENCY);
 
         Checkout checkout = new Checkout(totalAmount, buyer, mItemList,
                 CHECKOUT_REQUEST_REFERENCE_NUMBER, redirectUrl);

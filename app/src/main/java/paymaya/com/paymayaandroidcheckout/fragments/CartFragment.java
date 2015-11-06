@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Item;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.TotalAmount;
@@ -36,6 +37,9 @@ public class CartFragment extends BaseAbstractFragment {
 
     @Bind(R.id.paymaya_checkout_fragment_cart_recycler_view)
     ListView mRecyclerView;
+
+    @Bind(R.id.paymaya_checkout_fragment_cart_text_view_total)
+    TextView mTextViewTotal;
 
     private ListAdapter mListAdapter;
 
@@ -74,9 +78,10 @@ public class CartFragment extends BaseAbstractFragment {
         mRecyclerView.setAdapter(mListAdapter);
     }
 
-    public void notifyList() {
+    public void notifyList(double total) {
         if (mListAdapter != null) {
             mListAdapter.notifyDataSetChanged();
+            mTextViewTotal.setText("Total: PHP " + total);
         }
     }
 }

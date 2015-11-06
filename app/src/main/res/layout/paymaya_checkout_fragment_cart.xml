@@ -20,7 +20,8 @@
         android:textSize="18dp"
         android:layout_gravity="end"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/paymaya_checkout_fragment_cart_text_view_shipping_fee"
@@ -30,7 +31,8 @@
         android:textSize="18dp"
         android:layout_gravity="end"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/paymaya_checkout_fragment_cart_text_view_tax"
@@ -40,7 +42,8 @@
         android:textSize="18dp"
         android:layout_gravity="end"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/paymaya_checkout_fragment_cart_text_view_total"

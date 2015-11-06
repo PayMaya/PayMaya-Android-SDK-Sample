@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import paymaya.com.paymayaandroidcheckout.R;
+import paymaya.com.paymayaandroidcheckout.activities.StoreActivity;
 import paymaya.com.paymayaandroidcheckout.adapters.ViewPagerAdapter;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
 
@@ -59,7 +60,8 @@ public class StoreFragment extends BaseAbstractFragment {
             public void onPageScrolled(int position, float positionOffset, int
                     positionOffsetPixels) {
                 CartFragment frag = (CartFragment) adapter.instantiateItem(mViewPager, 1);
-                frag.notifyList();
+                StoreActivity storeActivity = (StoreActivity) getActivity();
+                frag.notifyList(storeActivity.getTotal());
                 Log.d("@onPageScrolled", " Viewpager scrolling");
             }
 
