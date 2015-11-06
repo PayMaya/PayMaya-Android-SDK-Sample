@@ -6,7 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Address;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Buyer;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Contact;
+
+import butterknife.Bind;
 import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
@@ -17,13 +23,68 @@ import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
 public class UserInformationFragment extends BaseAbstractFragment {
     private UserInformationFragmentListener mUserInformationFragmentListenerCallback;
 
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_first_name)
+    EditText mEditTextFirstName;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_middle_name)
+    EditText mEditTextMiddleName;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_last_name)
+    EditText mEditTextLastName;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_mobile_number)
+    EditText mEditTextMobileNumber;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_email)
+    EditText mEditTextEmail;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_line1)
+    EditText mEditTextLine1;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_line2)
+    EditText mEditTextLine2;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_city)
+    EditText mEditTextCity;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_state)
+    EditText mEditTextState;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_zip_code)
+    EditText mEditTextZipCode;
+
+    @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_country_code)
+    EditText mEditTextCountryCode;
+
     @OnClick(R.id.paymaya_checkout_fragment_user_information_button_checkout)
     public void onButtonCheckoutClick() {
-        mUserInformationFragmentListenerCallback.onButtonCheckout();
+        String first_name = mEditTextFirstName.getText().toString().trim();
+        String last_name = mEditTextLastName.getText().toString().trim();
+        String middle_name = mEditTextMiddleName.getText().toString().trim();
+
+        String mobile_number = mEditTextMobileNumber.getText().toString().trim();
+        String email = mEditTextEmail.getText().toString().trim();
+
+        String line1 = mEditTextLine1.getText().toString().trim();
+        String line2 = mEditTextLine2.getText().toString().trim();
+        String city = mEditTextCity.getText().toString().trim();
+        String state = mEditTextState.getText().toString().trim();
+        String zip_code = mEditTextZipCode.getText().toString().trim();
+        String country_code = mEditTextCountryCode.getText().toString().trim();
+
+        Buyer buyer = new Buyer(first_name, middle_name, last_name);
+        Contact contact = new Contact(mobile_number, email);
+        Address address = new Address(line1, line2, city, state, zip_code, country_code);
+        buyer.setContact(contact);
+        buyer.setBillingAddress(address);
+        buyer.setShippingAddress(address);
+
+        mUserInformationFragmentListenerCallback.onButtonCheckout(buyer);
     }
 
     public interface UserInformationFragmentListener {
-        void onButtonCheckout();
+
+        void onButtonCheckout(Buyer buyer);
     }
 
     public static UserInformationFragment getInstance() {
@@ -35,7 +96,8 @@ public class UserInformationFragment extends BaseAbstractFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        return inflater.inflate(R.layout.paymaya_checkout_fragment_user_information, container, false);
+        return inflater.inflate(R.layout.paymaya_checkout_fragment_user_information, container,
+                false);
     }
 
     @Override
@@ -44,7 +106,8 @@ public class UserInformationFragment extends BaseAbstractFragment {
         try {
             mUserInformationFragmentListenerCallback = (UserInformationFragmentListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement UserInformationFragmentListener");
+            throw new ClassCastException(context.toString() + " must implement " +
+                    "UserInformationFragmentListener");
         }
     }
 

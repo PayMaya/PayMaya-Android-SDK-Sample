@@ -30,60 +30,7 @@ public class CardItemAdapter extends BaseAdapter {
     public CardItemAdapter(Context context) {
         super();
         mContext = context;
-        mItemModels = new ArrayList<ItemModel>();
-        //item1
-        ItemModel itemModel = new ItemModel();
-        TotalAmount totalAmount = new TotalAmount(new BigDecimal(803), "PHP");
-        Item item = new Item("Bag One", new BigDecimal(1), totalAmount);
-
-        itemModel.setItem(item);
-        itemModel.setThumbNails(R.mipmap.bag);
-        mItemModels.add(itemModel);
-
-        //item2
-        itemModel = new ItemModel();
-        totalAmount = new TotalAmount(new BigDecimal(1945), "PHP");
-        item = new Item("Shoe One", new BigDecimal(1), totalAmount);
-
-        itemModel.setItem(item);
-        itemModel.setThumbNails(R.mipmap.shoe);
-        mItemModels.add(itemModel);
-
-        //item3
-        itemModel = new ItemModel();
-        totalAmount = new TotalAmount(new BigDecimal(5892), "PHP");
-        item = new Item("Necklace One", new BigDecimal(1), totalAmount);
-
-        itemModel.setItem(item);
-        itemModel.setThumbNails(R.mipmap.necklace);
-        mItemModels.add(itemModel);
-
-        //item4
-        itemModel = new ItemModel();
-        totalAmount = new TotalAmount(new BigDecimal(545), "PHP");
-        item = new Item("Tshirt One", new BigDecimal(1), totalAmount);
-
-        itemModel.setItem(item);
-        itemModel.setThumbNails(R.mipmap.tshirt);
-        mItemModels.add(itemModel);
-
-        //item5
-        itemModel = new ItemModel();
-        totalAmount = new TotalAmount(new BigDecimal(645), "PHP");
-        item = new Item("Tshirt Two", new BigDecimal(1), totalAmount);
-
-        itemModel.setItem(item);
-        itemModel.setThumbNails(R.mipmap.tshirt2);
-        mItemModels.add(itemModel);
-
-        //item6
-        itemModel = new ItemModel();
-        totalAmount = new TotalAmount(new BigDecimal(1645), "PHP");
-        item = new Item("Shoe Two", new BigDecimal(1), totalAmount);
-
-        itemModel.setItem(item);
-        itemModel.setThumbNails(R.mipmap.shoe);
-        mItemModels.add(itemModel);
+        mItemModels = Utils.getItemModels();
     }
 
     @Override

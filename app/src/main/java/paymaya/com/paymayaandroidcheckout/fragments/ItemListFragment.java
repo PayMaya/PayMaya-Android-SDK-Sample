@@ -49,7 +49,8 @@ public class ItemListFragment extends BaseAbstractFragment {
         try {
             mItemListFragmentListenerCallback = (ItemListFragmentListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement ItemListFragmentListener");
+            throw new ClassCastException(context.toString() + " must implement " +
+                    "ItemListFragmentListener");
         }
     }
 
@@ -64,7 +65,8 @@ public class ItemListFragment extends BaseAbstractFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ItemModel itemModel = ((ItemModel) mGridView.getAdapter().getItem(position));
                 mItemListFragmentListenerCallback.onItemClick(itemModel.getItem());
-                Toast.makeText(getActivity(), itemModel.getItem().getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), itemModel.getItem().getName(), Toast.LENGTH_SHORT)
+                        .show();
             }
         });
     }

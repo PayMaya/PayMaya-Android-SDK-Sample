@@ -18,9 +18,7 @@ import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
  * Created by jadeantolingaa on 11/2/15.
  */
 public class StoreFragment extends BaseAbstractFragment {
-
-    private ItemListFragment mItemListFragment;
-    private CartFragment mCartFragment;
+    private ViewPager mViewPager;
 
     public static StoreFragment getInstance() {
         StoreFragment storeFragment = new StoreFragment();
@@ -37,14 +35,12 @@ public class StoreFragment extends BaseAbstractFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mItemListFragment = new ItemListFragment();
-        mCartFragment = new CartFragment();
         setViewPager();
     }
 
     private void setViewPager() {
         Log.d("@StoreFragment", "setViewPager");
-        ViewPager mViewPager = (ViewPager) getActivity().findViewById(R.id
+        mViewPager = (ViewPager) getActivity().findViewById(R.id
                 .paymaya_checkout_fragment_store_viewpager);
         if (null != mViewPager) {
             setUpViewPager(mViewPager);
@@ -53,10 +49,30 @@ public class StoreFragment extends BaseAbstractFragment {
 
     private void setUpViewPager(ViewPager viewPager) {
         Log.d("@StoreFragment", "setUpViewPager");
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new ItemListFragment(), "Items");
         adapter.addFragment(new CartFragment(), "Cart");
         viewPager.setAdapter(adapter);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
+                CartFragment frag = (CartFragment) adapter.instantiateItem(mViewPager, 1);
+                frag.notifyList();
+                Log.d("@onPageScrolled", " Viewpager scrolling");
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id
                 .paymaya_checkout_fragment_store_tabs);

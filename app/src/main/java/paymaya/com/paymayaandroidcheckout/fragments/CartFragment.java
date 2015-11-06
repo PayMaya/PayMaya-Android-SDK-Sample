@@ -3,20 +3,25 @@ package paymaya.com.paymayaandroidcheckout.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ListView;
+
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Item;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.models.TotalAmount;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.activities.StoreActivity;
-import paymaya.com.paymayaandroidcheckout.adapters.ListViewItemAdapter;
+import paymaya.com.paymayaandroidcheckout.adapters.ListAdapter;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
-import paymaya.com.paymayaandroidcheckout.widgets.ListViewItemViewHolder;
 
 /**
  * Created by jadeantolingaa on 11/2/15.
@@ -30,7 +35,9 @@ public class CartFragment extends BaseAbstractFragment {
     }
 
     @Bind(R.id.paymaya_checkout_fragment_cart_recycler_view)
-    RecyclerView mRecyclerView;
+    ListView mRecyclerView;
+
+    private ListAdapter mListAdapter;
 
     public interface CartFragmentListener {
         void onButtonContinue();
@@ -62,8 +69,14 @@ public class CartFragment extends BaseAbstractFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         StoreActivity storeActivity = (StoreActivity) getActivity();
-        ListViewItemAdapter listViewItemAdapter = new ListViewItemAdapter(getActivity(), storeActivity.getItemList());
-        mRecyclerView.setAdapter(listViewItemAdapter);
-        listViewItemAdapter.notifyDataSetChanged();
+
+        mListAdapter = new ListAdapter(getActivity(), storeActivity.getItemList());
+        mRecyclerView.setAdapter(mListAdapter);
+    }
+
+    public void notifyList() {
+        if (mListAdapter != null) {
+            mListAdapter.notifyDataSetChanged();
+        }
     }
 }
