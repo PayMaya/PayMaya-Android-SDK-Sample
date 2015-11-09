@@ -28,7 +28,7 @@ android {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   compile 'com.android.support:appcompat-v7:23.0.1'
-  compile(name:'app-0.1.0-sandbox', ext:'aar')
+  compile(name:'app-0.1.1-sandbox', ext:'aar')
 }
 
 repositories{

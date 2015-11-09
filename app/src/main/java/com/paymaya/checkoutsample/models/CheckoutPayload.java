@@ -1,6 +1,5 @@
 package com.paymaya.checkoutsample.models;
 
-import com.voyagerinnovation.paymaya_sdk_android_checkout.exceptions.PayMayaCheckoutException;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Address;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.AmountDetails;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Buyer;
@@ -90,27 +89,32 @@ public class CheckoutPayload {
     /**
      * Items
      */
-    AmountDetails item1AmountDetails = new AmountDetails();
-    item1AmountDetails.setDiscount(BigDecimal.valueOf(100.00));
-    item1AmountDetails.setSubtotal(BigDecimal.valueOf(1721.10));
+    BigDecimal item1Discount = BigDecimal.valueOf(100.00);
+    BigDecimal item1Subtotal = BigDecimal.valueOf(1721.10);
+    AmountDetails item1AmountDetails = new AmountDetails(item1Discount, item1Subtotal,
+            BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0));
 
     ItemAmount item1ItemAmount = new ItemAmount(BigDecimal.valueOf(1621.10));
     item1ItemAmount.setDetails(item1AmountDetails);
-    TotalAmount item1TotalAmount = new TotalAmount(BigDecimal.valueOf(4863.30), "PHP");
 
-    Item item1 = new Item("Canvas Slip Ons", BigDecimal.valueOf(3), item1TotalAmount);
+    TotalAmount item1TotalAmount = new TotalAmount(BigDecimal.valueOf(4863.30), "PHP");
+    item1TotalAmount.setAmountDetails(item1AmountDetails);
+
+    Item item1 = new Item("Canvas Slip Ons", 3, item1TotalAmount);
     item1.setSkuCode("CVG-096732");
     item1.setDescription("Shoes");
+    item1.setItemAmount(item1ItemAmount);
 
-    List<Item> itemList = new ArrayList<>();
+
+    ArrayList<Item> itemList = new ArrayList<>();
     itemList.add(item1);
 
     RedirectUrl redirectUrl = new RedirectUrl(successUrl, failureUrl, cancelUrl);
 
     Checkout checkout = new Checkout(totalAmount, buyer, itemList, "000141386713", redirectUrl);
-
-    JSONObject payload = checkout.toJSON();
-    Log.i(TAG, payload.toString());
+    checkout.setMetadata(new JSONObject());
+    Log.i(TAG, "checkout : ");
+    Log.i(TAG, ""+checkout.toString());
 
     return checkout;
 
