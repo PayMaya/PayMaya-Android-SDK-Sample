@@ -4,17 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.voyagerinnovation.paymaya_sdk_android_checkout.PayMayaCheckout;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.AmountDetails;
+import com.voyagerinnovation.paymaya_sdk_android_checkout.PayMayaCheckoutCallback;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Buyer;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Checkout;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Item;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.RedirectUrl;
 import com.voyagerinnovation.paymaya_sdk_android_checkout.models.TotalAmount;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.webview.PayMayaCheckoutWebViewActivity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -40,7 +38,6 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
     private static final String CLIENT_KEY = "8510f691-8c0b-4f28-bfa0-bcced0cb0fd2";
     private static final String CLIENT_SECRET = "";
 
-    private static final int CHECKOUT_REQUEST_CODE = 1234;
     private static final String CHECKOUT_REQUEST_REFERENCE_NUMBER = "000141386713";
     private static final String CHECKOUT_CURRENCY = "PHP";
 
@@ -50,6 +47,8 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
     private static final String CANCEL_URL = "http://shop.someserver.com/cancel?id=" + PRODUCT_ID;
 
     private List<Item> mItemList = new ArrayList<>();
+
+    private PayMayaCheckout mPayMayaCheckout;
 
     public double getTotal() {
         double total = 0.0;
@@ -86,13 +85,25 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
 
         TotalAmount totalAmount = new TotalAmount(BigDecimal.valueOf(getTotal()), CHECKOUT_CURRENCY);
 
-        Checkout checkout = new Checkout(totalAmount, buyer, mItemList,
-                CHECKOUT_REQUEST_REFERENCE_NUMBER, redirectUrl);
+        Checkout checkout = new Checkout(totalAmount, buyer, mItemList, CHECKOUT_REQUEST_REFERENCE_NUMBER, redirectUrl);
 
-        PayMayaCheckout payMayaCheckout = new PayMayaCheckout();
-        payMayaCheckout.execute(this, CHECKOUT_REQUEST_CODE, checkout, CLIENT_KEY, CLIENT_SECRET);
+        mPayMayaCheckout = new PayMayaCheckout(CLIENT_KEY, CLIENT_SECRET, new PayMayaCheckoutCallback() {
+            @Override
+            public void onCheckoutSuccess() {
+                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+            }
 
-        Toast.makeText(getApplicationContext(), "Checkout button click", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onCheckoutCanceled() {
+                Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCheckoutFailure() {
+                Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mPayMayaCheckout.execute(this, checkout);
     }
 
     @Override
@@ -107,24 +118,6 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode != CHECKOUT_REQUEST_CODE) {
-            return;
-        }
-
-        if (resultCode == RESULT_OK) {
-            Toast.makeText(StoreActivity.this, "Result OK", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(StoreActivity.this, "Result Canceled", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (resultCode == PayMayaCheckoutWebViewActivity.RESULT_FAILURE) {
-            Toast.makeText(StoreActivity.this, "Result Failure", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        mPayMayaCheckout.onActivityResult(requestCode, resultCode, data);
     }
 }
