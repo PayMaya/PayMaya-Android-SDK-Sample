@@ -24,15 +24,42 @@ public class Utils {
     private Utils() {
     }
 
+    /**
+     *
+     * @return List ItemModel
+     */
     public static List<ItemModel> getItemModels() {
+        /**
+         * Create List of ItemModels for Checkout object
+         */
         List<ItemModel> mItemModels = new ArrayList<>();
         //item1
-        ItemModel itemModel = new ItemModel();
+
+        /**
+         * Create TotalAmount per Item
+         *
+         * @params - (BigDecimal) price, (String) currency
+         */
         TotalAmount totalAmount = new TotalAmount(BigDecimal.valueOf(803.78), "PHP");
+
+        /**
+         * Create Item for name, count and amount
+         *
+         * @params - (String) item_name, (int) count, (TotalAmount) total_amount
+         * @setmethods - Skucode ((String) code)
+         *             - Description ((String) description)
+         */
         Item item = new Item("Bag One", 1, totalAmount);
         item.setSkuCode("CVG-096731");
         item.setDescription("bag");
 
+        /**
+         * Create ItemModel for List of Items
+         *
+         * @setmethods - Item ((Item) item)
+         *
+         */
+        ItemModel itemModel = new ItemModel();
         itemModel.setItem(item);
         itemModel.setThumbNails(R.mipmap.bag);
         mItemModels.add(itemModel);

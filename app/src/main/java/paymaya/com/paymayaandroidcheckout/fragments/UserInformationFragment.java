@@ -72,13 +72,38 @@ public class UserInformationFragment extends BaseAbstractFragment {
         String zip_code = mEditTextZipCode.getText().toString().trim();
         String country_code = mEditTextCountryCode.getText().toString().trim();
 
-        Buyer buyer = new Buyer(first_name, middle_name, last_name);
+        /**
+         * Create Contact for Buyer object
+         *
+         * @params - (String) mobile_number, (String) email
+         */
         Contact contact = new Contact(mobile_number, email);
+
+        /**
+         * Create Address for Billing and Shipping Address to be needed in Buyer object
+         *
+         * @params - (String) line1, (String) line2, (String) city, (String) state,
+         *           (String) zip_code, (String) country_code
+         */
         Address address = new Address(line1, line2, city, state, zip_code, country_code);
+
+        /**
+         * Create Buyer for Checkout object
+         *
+         * @params - (String) first_name, (String) middle_name, (String) last_name
+         * @setmethods - Contact,
+         *               BillingAddress,
+         *               ShippingAddress
+         */
+        Buyer buyer = new Buyer(first_name, middle_name, last_name);
         buyer.setContact(contact);
         buyer.setBillingAddress(address);
         buyer.setShippingAddress(address);
 
+        /**
+         * Passed Buyer instance variable for Checkout object
+         *
+         */
         mUserInformationFragmentListenerCallback.onButtonCheckout(buyer);
     }
 

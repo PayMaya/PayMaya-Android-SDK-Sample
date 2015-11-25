@@ -69,10 +69,12 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
         replaceFragment(getActivity(), FRAGMENT_CONTAINER, new StoreFragment());
 
         /**
-         * Initialize PayMayaCheckout instance variable in onCreate
+         * Initialize PayMayaCheckout instance variable at onCreate
          * Implements PayMayaCheckoutCallback in the class to be passed at the constructor
          * Create Client Key string to be passed at the constructor
          * Passed Client Key and PayMayaCheckoutCallback in PayMayaCheckout constructor
+         *
+         * params - (String) client_key, (Class implemented with PayMayaCheckoutCallback)
          */
         
         payMayaCheckout = new PayMayaCheckout(CLIENT_KEY, this);
@@ -91,13 +93,30 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
 
     @Override
     public void onButtonCheckout(Buyer buyer) {
+        /**
+         * Create RedirectUrl object to be needed in creating Checkout object
+         * @params - (String) success_url, (String) failure_url, (String) cancel_url
+         */
         RedirectUrl redirectUrl = new RedirectUrl(SUCCESS_URL, FAILURE_URL, CANCEL_URL);
 
+        /**
+         * Create TotalAmount object to be needed in creating Checkout object
+         * @params - (BigDecimal) total amount of item, (String) currency
+         */
         TotalAmount totalAmount = new TotalAmount(BigDecimal.valueOf(getTotal()), CHECKOUT_CURRENCY);
 
+        /**
+         * Create Checkout object to be passed in executing checkout sdk
+         * @params - (TotalAmount) totalAmount, (Buyer) buyer, (List<Item>) item,
+         *          (String) reference_number, (RedirectUrl) redirect_url
+         */
         Checkout checkout = new Checkout(totalAmount, buyer, mItemList,
                 CHECKOUT_REQUEST_REFERENCE_NUMBER, redirectUrl);
 
+        /**
+         * Call PayMayaCheckout execute method
+         * @params - (Activity) this, (Checkout) checkout
+         */
         payMayaCheckout.execute(this, checkout);
 
         Toast.makeText(getApplicationContext(), "Checkout button click", Toast.LENGTH_SHORT).show();
@@ -115,7 +134,13 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        /**
+         * Call PayMayaCheckout onActivityResult(requestCode, resultCode, data)
+         * to have access in the implemented methods of PayMayaCheckoutCallback
+         * which is the onCheckoutSuccess(), onCheckoutCanceled(), onCheckoutFailure()
+         *
+         * @params - requestCode, resultCode, data
+         */
         payMayaCheckout.onActivityResult(requestCode, resultCode, data);
     }
 
