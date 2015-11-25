@@ -2,10 +2,8 @@ package paymaya.com.paymayaandroidcheckout.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.paymaya.checkoutsdkandroid.PayMayaCheckout;
@@ -41,7 +39,6 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
     private static final String CLIENT_KEY = "8510f691-8c0b-4f28-bfa0-bcced0cb0fd2";
     private static final String CLIENT_SECRET = "";
 
-    private static final int CHECKOUT_REQUEST_CODE = 1234;
     private static final String CHECKOUT_REQUEST_REFERENCE_NUMBER = "000141386713";
     private static final String CHECKOUT_CURRENCY = "PHP";
 
@@ -124,19 +121,16 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
 
     @Override
     public void onCheckoutSuccess() {
-        Log.d(TAG, "@onCheckoutSuccess");
         Toast.makeText(StoreActivity.this, "Result OK", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCheckoutCanceled() {
-        Log.d(TAG, "@onCheckoutCanceled");
         Toast.makeText(StoreActivity.this, "Result Canceled", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCheckoutFailure() {
-        Log.d(TAG, "@onCheckoutFailure");
         Toast.makeText(StoreActivity.this, "Result Failure", Toast.LENGTH_SHORT).show();
     }
 }
