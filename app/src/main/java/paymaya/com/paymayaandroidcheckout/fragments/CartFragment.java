@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Item;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.TotalAmount;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

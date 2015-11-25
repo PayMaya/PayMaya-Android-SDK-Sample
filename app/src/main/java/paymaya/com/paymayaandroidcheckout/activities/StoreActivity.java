@@ -2,19 +2,19 @@ package paymaya.com.paymayaandroidcheckout.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.voyagerinnovation.paymaya_sdk_android_checkout.PayMayaCheckout;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.AmountDetails;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Buyer;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Checkout;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Item;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.RedirectUrl;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.TotalAmount;
-import com.voyagerinnovation.paymaya_sdk_android_checkout.webview.PayMayaCheckoutWebViewActivity;
+import com.paymaya.checkoutsdkandroid.PayMayaCheckout;
+import com.paymaya.checkoutsdkandroid.PayMayaCheckoutCallback;
+import com.paymaya.checkoutsdkandroid.models.Buyer;
+import com.paymaya.checkoutsdkandroid.models.Checkout;
+import com.paymaya.checkoutsdkandroid.models.Item;
+import com.paymaya.checkoutsdkandroid.models.RedirectUrl;
+import com.paymaya.checkoutsdkandroid.models.TotalAmount;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -32,7 +32,8 @@ import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
  */
 public class StoreActivity extends BaseAbstractActivity implements CartFragment
         .CartFragmentListener, UserInformationFragment.UserInformationFragmentListener,
-        ItemListFragment.ItemListFragmentListener {
+        ItemListFragment.ItemListFragmentListener, PayMayaCheckoutCallback {
+    private static final String TAG = StoreActivity.class.getSimpleName();
 
     private static final int FRAGMENT_CONTAINER = R.id
             .paymaya_checkout_activity_store_fragment_container;
@@ -51,6 +52,8 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
 
     private List<Item> mItemList = new ArrayList<>();
 
+    private PayMayaCheckout payMayaCheckout;
+
     public double getTotal() {
         double total = 0.0;
         for (Item item : mItemList) {
@@ -67,6 +70,15 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         replaceFragment(getActivity(), FRAGMENT_CONTAINER, new StoreFragment());
+
+        /**
+         * Initialize PayMayaCheckout instance variable in onCreate
+         * Implements PayMayaCheckoutCallback in the class to be passed at the constructor
+         * Create Client Key string to be passed at the constructor
+         * Passed Client Key and PayMayaCheckoutCallback in PayMayaCheckout constructor
+         */
+        
+        payMayaCheckout = new PayMayaCheckout(CLIENT_KEY, this);
     }
 
     @Override
@@ -89,8 +101,7 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
         Checkout checkout = new Checkout(totalAmount, buyer, mItemList,
                 CHECKOUT_REQUEST_REFERENCE_NUMBER, redirectUrl);
 
-        PayMayaCheckout payMayaCheckout = new PayMayaCheckout();
-        payMayaCheckout.execute(this, CHECKOUT_REQUEST_CODE, checkout, CLIENT_KEY, CLIENT_SECRET);
+        payMayaCheckout.execute(this, checkout);
 
         Toast.makeText(getApplicationContext(), "Checkout button click", Toast.LENGTH_SHORT).show();
     }
@@ -108,23 +119,24 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode != CHECKOUT_REQUEST_CODE) {
-            return;
-        }
+        payMayaCheckout.onActivityResult(requestCode, resultCode, data);
+    }
 
-        if (resultCode == RESULT_OK) {
-            Toast.makeText(StoreActivity.this, "Result OK", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    @Override
+    public void onCheckoutSuccess() {
+        Log.d(TAG, "@onCheckoutSuccess");
+        Toast.makeText(StoreActivity.this, "Result OK", Toast.LENGTH_SHORT).show();
+    }
 
-        if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(StoreActivity.this, "Result Canceled", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    @Override
+    public void onCheckoutCanceled() {
+        Log.d(TAG, "@onCheckoutCanceled");
+        Toast.makeText(StoreActivity.this, "Result Canceled", Toast.LENGTH_SHORT).show();
+    }
 
-        if (resultCode == PayMayaCheckoutWebViewActivity.RESULT_FAILURE) {
-            Toast.makeText(StoreActivity.this, "Result Failure", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    @Override
+    public void onCheckoutFailure() {
+        Log.d(TAG, "@onCheckoutFailure");
+        Toast.makeText(StoreActivity.this, "Result Failure", Toast.LENGTH_SHORT).show();
     }
 }

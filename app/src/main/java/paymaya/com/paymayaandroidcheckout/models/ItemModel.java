@@ -1,6 +1,7 @@
 package paymaya.com.paymayaandroidcheckout.models;
 
-import com.voyagerinnovation.paymaya_sdk_android_checkout.models.Item;
+
+import com.paymaya.checkoutsdkandroid.models.Item;
 
 /**
  * Created by jadeantolingaa on 11/3/15.
