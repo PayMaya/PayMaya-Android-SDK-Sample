@@ -75,10 +75,10 @@ public class CartFragment extends BaseAbstractFragment {
         mRecyclerView.setAdapter(mListAdapter);
     }
 
-    public void notifyList(double total) {
+    public void notifyList(BigDecimal total) {
         if (mListAdapter != null) {
             mListAdapter.notifyDataSetChanged();
-            mTextViewTotal.setText("Total: PHP " + total);
+            mTextViewTotal.setText("Total: PHP " + total.toString());
         }
     }
 }

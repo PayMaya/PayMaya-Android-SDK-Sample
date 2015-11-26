@@ -51,10 +51,10 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
 
     private PayMayaCheckout payMayaCheckout;
 
-    public double getTotal() {
-        double total = 0.0;
+    public BigDecimal getTotal() {
+        BigDecimal total = BigDecimal.valueOf(0.00);
         for (Item item : mItemList) {
-            total = total + item.getTotalAmount().getValue().doubleValue();
+            total = total.add(item.getTotalAmount().getValue());
         }
         return total;
     }
@@ -103,7 +103,7 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
          * Create TotalAmount object to be needed in creating Checkout object
          * @params - (BigDecimal) total amount of item, (String) currency
          */
-        TotalAmount totalAmount = new TotalAmount(BigDecimal.valueOf(getTotal()), CHECKOUT_CURRENCY);
+        TotalAmount totalAmount = new TotalAmount(getTotal(), CHECKOUT_CURRENCY);
 
         /**
          * Create Checkout object to be passed in executing checkout sdk
