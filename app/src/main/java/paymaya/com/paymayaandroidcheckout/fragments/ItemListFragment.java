@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.etsy.android.grid.StaggeredGridView;
-import com.paymaya.checkoutsdkandroid.models.Item;
+import com.paymaya_sdk_android.checkout.models.Item;
 
 import butterknife.Bind;
 import paymaya.com.paymayaandroidcheckout.R;

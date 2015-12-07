@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.paymaya.checkoutsdkandroid.models.Address;
-import com.paymaya.checkoutsdkandroid.models.Buyer;
-import com.paymaya.checkoutsdkandroid.models.Contact;
+
+import com.paymaya_sdk_android.checkout.models.Address;
+import com.paymaya_sdk_android.checkout.models.Buyer;
+import com.paymaya_sdk_android.checkout.models.Contact;
 
 import butterknife.Bind;
 import butterknife.OnClick;

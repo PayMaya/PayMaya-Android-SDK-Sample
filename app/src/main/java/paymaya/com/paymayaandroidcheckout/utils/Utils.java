@@ -3,12 +3,11 @@ package paymaya.com.paymayaandroidcheckout.utils;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.paymaya.checkoutsdkandroid.models.Item;
-import com.paymaya.checkoutsdkandroid.models.TotalAmount;
+import com.paymaya_sdk_android.checkout.models.Item;
+import com.paymaya_sdk_android.checkout.models.TotalAmount;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

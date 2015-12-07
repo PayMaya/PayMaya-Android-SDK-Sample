@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.paymaya.checkoutsdkandroid.models.Item;
+import com.paymaya_sdk_android.checkout.models.Item;
 
 import java.util.List;
 
