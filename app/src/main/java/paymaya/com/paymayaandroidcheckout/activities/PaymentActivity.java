@@ -34,16 +34,18 @@ public class PaymentActivity extends BaseAbstractActivity{
         String expYear = "2015";
         String cvc = "123";
         card = new Card(number, expMonth, expYear, cvc);
-
+        mPayMayaPayment = new PayMayaPayment(CLIENT_KEY, card);
         new AsyncTask<Void, Void, PaymentToken>() {
             @Override
             protected PaymentToken doInBackground(Void... params) {
-                return mPayMayaPayment.getPaymentToken(card, mUuid);
+                return mPayMayaPayment.getPaymentToken();
             }
 
             @Override
             protected void onPostExecute(PaymentToken paymentToken) {
-                Toast.makeText(getApplicationContext(), paymentToken.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), paymentToken.getId() +
+                        "Date: " + paymentToken.getCreatedAt().toString(),
+                        Toast.LENGTH_SHORT).show();
             }
         }.execute();
 
@@ -54,7 +56,7 @@ public class PaymentActivity extends BaseAbstractActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paymaya_sdk_activity_payment);
         ButterKnife.bind(this);
-        mPayMayaPayment = new PayMayaPayment(CLIENT_KEY);
+
         mUuid = UUID.randomUUID().toString();
     }
 
