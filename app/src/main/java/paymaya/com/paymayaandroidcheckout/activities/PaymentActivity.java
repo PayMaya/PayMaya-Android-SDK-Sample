@@ -35,6 +35,7 @@ public class PaymentActivity extends BaseAbstractActivity{
         String cvc = "123";
         card = new Card(number, expMonth, expYear, cvc);
         mPayMayaPayment = new PayMayaPayment(CLIENT_KEY, card);
+
         new AsyncTask<Void, Void, PaymentToken>() {
             @Override
             protected PaymentToken doInBackground(Void... params) {
