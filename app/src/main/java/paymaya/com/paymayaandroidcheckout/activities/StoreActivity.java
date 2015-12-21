@@ -59,7 +59,7 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
         for (Item item : mItemList) {
             total = total.add(item.getTotalAmount().getValue());
         }
-        return total;
+        return total.setScale(2);
     }
 
     @Override
