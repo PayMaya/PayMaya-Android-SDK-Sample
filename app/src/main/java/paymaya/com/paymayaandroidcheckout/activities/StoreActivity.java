@@ -36,8 +36,8 @@ public class StoreActivity extends BaseAbstractActivity implements CartFragment
     private static final int FRAGMENT_CONTAINER = R.id
             .paymaya_checkout_activity_store_fragment_container;
 
-//    private static final String CLIENT_KEY = "8510f691-8c0b-4f28-bfa0-bcced0cb0fd2";
-    private static final String CLIENT_KEY = "pk-Vcbn4FBDmR7CXiBD4SfVnftbgHUG40AM4AqRlOBwRze";
+    private static final String CLIENT_KEY = "8510f691-8c0b-4f28-bfa0-bcced0cb0fd2";
+//    private static final String CLIENT_KEY = "pk-Vcbn4FBDmR7CXiBD4SfVnftbgHUG40AM4AqRlOBwRze";
     private static final String CLIENT_SECRET = "";
 
     private static final String CHECKOUT_REQUEST_REFERENCE_NUMBER = "000141386713";
