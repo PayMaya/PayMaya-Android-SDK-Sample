@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.paymaya_sdk_android.PayMaya;
 import com.paymaya_sdk_android.payment.PayMayaPayment;
 import com.paymaya_sdk_android.payment.models.Card;
 import com.paymaya_sdk_android.payment.models.PaymentToken;
@@ -28,7 +29,8 @@ import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
 /**
  * Created by jadeantolingaa on 12/4/15.
  */
-public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog.OnDateSetListener{
+public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog
+        .OnDateSetListener {
     private static final String CLIENT_KEY = "pk-SjRNZLyr9OmovoHs2dXZ6obTxQ39YsPyc3f7oyrtNCX";
 
     private PayMayaPayment mPayMayaPayment;
@@ -78,7 +80,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             @Override
             protected void onPostExecute(PaymentToken paymentToken) {
                 Toast.makeText(getApplicationContext(), paymentToken.getPaymentTokenId() +
-                        "Date: " + paymentToken.getCreatedAt().toString(),
+                                "Date: " + paymentToken.getCreatedAt().toString(),
                         Toast.LENGTH_SHORT).show();
             }
         }.execute();
@@ -109,7 +111,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         mEditTextDate.setText(DateUtils.formatDate(year, monthOfYear, dayOfMonth));
 
-        mMonth =  monthOfYear > 10 ? monthOfYear + "" : "0" + monthOfYear;
-        mYear = year +  "";
+        mMonth = monthOfYear > 10 ? monthOfYear + "" : "0" + monthOfYear;
+        mYear = year + "";
     }
 }
