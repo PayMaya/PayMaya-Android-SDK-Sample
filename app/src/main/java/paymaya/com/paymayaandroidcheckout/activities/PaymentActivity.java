@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.paymaya.sdk.android.PayMaya;
 import com.paymaya.sdk.android.payment.PayMayaPayment;
 import com.paymaya.sdk.android.payment.models.Card;
 import com.paymaya.sdk.android.payment.models.PaymentToken;
@@ -30,7 +31,8 @@ import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
  */
 public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog
         .OnDateSetListener {
-    private static final String CLIENT_KEY = "pk-SjRNZLyr9OmovoHs2dXZ6obTxQ39YsPyc3f7oyrtNCX";
+//    private static final String CLIENT_KEY = "pk-SjRNZLyr9OmovoHs2dXZ6obTxQ39YsPyc3f7oyrtNCX";
+    private static final String CLIENT_KEY = "pk-OKkXqYUN1bkzgstdCRqJ6hlmzLUNYq6koeKBFVNxY7E";
 
     private PayMayaPayment mPayMayaPayment;
     private Card card;
@@ -98,6 +100,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
         setContentView(R.layout.paymaya_sdk_activity_payment);
         ButterKnife.bind(this);
 
+        Log.i("SAMTEST", "" + PayMaya.getEnvironment());
         mUuid = UUID.randomUUID().toString();
     }
 
