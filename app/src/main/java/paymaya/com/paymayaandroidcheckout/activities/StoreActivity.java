@@ -6,13 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
-import com.paymaya_sdk_android.checkout.PayMayaCheckout;
-import com.paymaya_sdk_android.checkout.PayMayaCheckoutCallback;
-import com.paymaya_sdk_android.checkout.models.Buyer;
-import com.paymaya_sdk_android.checkout.models.Checkout;
-import com.paymaya_sdk_android.checkout.models.Item;
-import com.paymaya_sdk_android.checkout.models.RedirectUrl;
-import com.paymaya_sdk_android.checkout.models.TotalAmount;
+import com.paymaya.sdk.android.checkout.PayMayaCheckout;
+import com.paymaya.sdk.android.checkout.PayMayaCheckoutCallback;
+import com.paymaya.sdk.android.checkout.models.Buyer;
+import com.paymaya.sdk.android.checkout.models.Checkout;
+import com.paymaya.sdk.android.checkout.models.Item;
+import com.paymaya.sdk.android.checkout.models.RedirectUrl;
+import com.paymaya.sdk.android.checkout.models.TotalAmount;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

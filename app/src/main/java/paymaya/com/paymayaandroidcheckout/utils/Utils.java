@@ -3,8 +3,8 @@ package paymaya.com.paymayaandroidcheckout.utils;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.paymaya_sdk_android.checkout.models.Item;
-import com.paymaya_sdk_android.checkout.models.TotalAmount;
+import com.paymaya.sdk.android.checkout.models.Item;
+import com.paymaya.sdk.android.checkout.models.TotalAmount;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 

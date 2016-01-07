@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;

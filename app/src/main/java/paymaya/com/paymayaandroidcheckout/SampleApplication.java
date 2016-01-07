@@ -2,7 +2,7 @@ package paymaya.com.paymayaandroidcheckout;
 
 import android.app.Application;
 
-import com.paymaya_sdk_android.PayMaya;
+import com.paymaya.sdk.android.PayMaya;
 
 /**
  * Created by jadeantolingaa on 1/6/16.

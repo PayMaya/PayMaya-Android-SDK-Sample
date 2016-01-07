@@ -10,10 +10,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.paymaya_sdk_android.PayMaya;
-import com.paymaya_sdk_android.payment.PayMayaPayment;
-import com.paymaya_sdk_android.payment.models.Card;
-import com.paymaya_sdk_android.payment.models.PaymentToken;
+import com.paymaya.sdk.android.payment.PayMayaPayment;
+import com.paymaya.sdk.android.payment.models.Card;
+import com.paymaya.sdk.android.payment.models.PaymentToken;
 
 import java.util.UUID;
 
