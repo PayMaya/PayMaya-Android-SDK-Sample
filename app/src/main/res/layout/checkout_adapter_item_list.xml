@@ -46,8 +46,10 @@
         android:id="@+id/checkout_adapter_item_list_button_buy"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:background="@drawable/background_white_stroke_black"
         android:text="Buy"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="30dp"
+        android:textAllCaps="false"/>
 
 </LinearLayout>
