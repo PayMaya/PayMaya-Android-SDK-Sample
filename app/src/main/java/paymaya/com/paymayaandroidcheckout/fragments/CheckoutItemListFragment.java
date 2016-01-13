@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.paymaya.sdk.android.checkout.models.Buyer;
 import com.paymaya.sdk.android.checkout.models.Item;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -25,8 +28,6 @@ import paymaya.com.paymayaandroidcheckout.models.ItemModel;
  */
 public class CheckoutItemListFragment extends BaseAbstractFragment implements
         CheckoutItemListAdapter.CheckoutItemListAdapterListener {
-
-    private static final String BUNDLE_ARGS_URL = "url";
 
     private CheckoutItemListFragmentListener mCheckoutItemListFragmentListener;
     private CheckoutItemListAdapter mCheckoutItemListAdapter;
@@ -67,6 +68,12 @@ public class CheckoutItemListFragment extends BaseAbstractFragment implements
         mCheckoutItemListAdapter = new CheckoutItemListAdapter(getActivity(), this, (
                 (SampleApplication) getActivity().getApplication()).getItemModelList());
         mListViewItemList.setAdapter(mCheckoutItemListAdapter);
+
+        HashMap<Integer, Integer> map = ((SampleApplication) getActivity().getApplication()).getHashMap();
+
+        Toast.makeText(getContext(), "Position 0 : " + map.get(0) +
+                                    "Position 1 : " + map.get(1) +
+                                    "Position 2 : " + map.get(2), Toast.LENGTH_SHORT).show();
     }
 
     @Override

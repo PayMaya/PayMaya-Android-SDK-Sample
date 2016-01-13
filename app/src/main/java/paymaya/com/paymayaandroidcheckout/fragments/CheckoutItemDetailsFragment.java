@@ -61,7 +61,6 @@ public class CheckoutItemDetailsFragment extends BaseAbstractFragment {
 
     @OnClick(R.id.checkout_fragment_item_details_button_add_to_cart)
     public void onButtonAddToCartClick(View view) {
-        //get hashmap quantity then add the itemQuantity
         mHashMap.put(pos, itemQuantity);
         ((SampleApplication) getActivity().getApplication()).setHashMap(mHashMap);
         getActivity().onBackPressed();
@@ -116,5 +115,7 @@ public class CheckoutItemDetailsFragment extends BaseAbstractFragment {
         }
 
         mHashMap = ((SampleApplication) getActivity().getApplication()).getHashMap();
+        itemQuantity = mHashMap.get(pos) == null ? 0 : mHashMap.get(pos);
+        mTextViewItemQuantity.setText(itemQuantity + "");
     }
 }
