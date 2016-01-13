@@ -75,6 +75,11 @@ public class CartFragment extends BaseAbstractFragment {
         mRecyclerView.setAdapter(mListAdapter);
     }
 
+    @Override
+    public void initialize() {
+
+    }
+
     public void notifyList(BigDecimal total) {
         if (mListAdapter != null) {
             mListAdapter.notifyDataSetChanged();

@@ -60,14 +60,19 @@ public class ItemListFragment extends BaseAbstractFragment {
 
         mGridView.setAdapter(new CardItemAdapter(getActivity()));
 
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ItemModel itemModel = ((ItemModel) mGridView.getAdapter().getItem(position));
-                mItemListFragmentListenerCallback.onItemClick(itemModel.getItem());
-                Toast.makeText(getActivity(), itemModel.getItem().getName(), Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
+//        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                ItemModel itemModel = ((ItemModel) mGridView.getAdapter().getItem(position));
+//                mItemListFragmentListenerCallback.onItemClick(itemModel.getItem());
+//                Toast.makeText(getActivity(), itemModel.getItem().getName(), Toast.LENGTH_SHORT)
+//                        .show();
+//            }
+//        });
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }

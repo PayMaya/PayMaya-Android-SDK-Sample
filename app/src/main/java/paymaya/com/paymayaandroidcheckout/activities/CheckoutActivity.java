@@ -16,15 +16,19 @@ import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractActivity;
+import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemDetailsFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemListFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
 import paymaya.com.paymayaandroidcheckout.models.ItemModel;
+import paymaya.com.paymayaandroidcheckout.utils.ListItem;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
  */
 public class CheckoutActivity extends BaseAbstractActivity implements PayMayaCheckoutCallback,
-        CheckoutItemListFragment.CheckoutItemListFragmentListener, UserInformationFragment.UserInformationFragmentListener {
+        CheckoutItemListFragment.CheckoutItemListFragmentListener, UserInformationFragment
+                .UserInformationFragmentListener, CheckoutItemDetailsFragment
+                .CheckoutItemDetailsFragmentListener {
     private static final int FRAGMENT_CONTAINER = R.id
             .paymaya_checkout_activity_store_fragment_container;
     private static final long PRODUCT_ID = 6319921;
@@ -36,7 +40,6 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     private static final String CHECKOUT_CURRENCY = "PHP";
     private static final String CLIENT_KEY = "pk-iaioBC2pbY6d3BVRSebsJxghSHeJDW4n6navI7tYdrN";
 
-    private List<Item> mItemList = new ArrayList<>();
     private PayMayaCheckout payMayaCheckout;
 
 
@@ -52,7 +55,6 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        replaceFragment(getActivity(), FRAGMENT_CONTAINER, new CheckoutItemListFragment());
 
         /**
          * Initialize PayMayaCheckout instance variable at onCreate
@@ -64,20 +66,23 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
          */
 
         payMayaCheckout = new PayMayaCheckout(CLIENT_KEY, this);
+        replaceFragment(getActivity(), FRAGMENT_CONTAINER, new CheckoutItemListFragment());
     }
 
     @Override
-    public void onButtonBuy(ItemModel itemModel) {
-        replaceFragmentAddToBackStack(getActivity(), FRAGMENT_CONTAINER, new
-                UserInformationFragment());
+    public void onButtonBuy(int position) {
+        replaceFragmentAddToBackStack(getActivity(), FRAGMENT_CONTAINER,
+                CheckoutItemDetailsFragment.getInstance(position));
     }
 
-    public List<Item> getItemList() {
-        return mItemList;
+    @Override
+    public void onButtonAddToCartClick() {
+
     }
 
-    public void setItemList(List<Item> itemList) {
-        mItemList = itemList;
+    @Override
+    public void onButtonCheckout(Buyer buyer) {
+
     }
 
     @Override
@@ -106,10 +111,5 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     @Override
     public void onCheckoutFailure() {
         Toast.makeText(this, "Result Failure", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onButtonCheckout(Buyer buyer) {
-
     }
 }

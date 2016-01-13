@@ -15,5 +15,8 @@ public abstract class BaseAbstractFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        initialize();
     }
+
+    public abstract void initialize();
 }

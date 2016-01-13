@@ -25,7 +25,7 @@ public class CardItemAdapter extends BaseAdapter {
     public CardItemAdapter(Context context) {
         super();
         mContext = context;
-        mItemModels = Utils.getItemModels();
+        //mItemModels = Utils.getItemModels();
     }
 
     @Override

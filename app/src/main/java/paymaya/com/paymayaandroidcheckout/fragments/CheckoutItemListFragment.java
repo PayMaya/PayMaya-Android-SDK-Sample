@@ -14,6 +14,8 @@ import com.paymaya.sdk.android.checkout.models.Item;
 import butterknife.Bind;
 import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
+import paymaya.com.paymayaandroidcheckout.SampleApplication;
+import paymaya.com.paymayaandroidcheckout.activities.CheckoutActivity;
 import paymaya.com.paymayaandroidcheckout.adapters.CheckoutItemListAdapter;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
 import paymaya.com.paymayaandroidcheckout.models.ItemModel;
@@ -23,6 +25,9 @@ import paymaya.com.paymayaandroidcheckout.models.ItemModel;
  */
 public class CheckoutItemListFragment extends BaseAbstractFragment implements
         CheckoutItemListAdapter.CheckoutItemListAdapterListener {
+
+    private static final String BUNDLE_ARGS_URL = "url";
+
     private CheckoutItemListFragmentListener mCheckoutItemListFragmentListener;
     private CheckoutItemListAdapter mCheckoutItemListAdapter;
 
@@ -30,7 +35,7 @@ public class CheckoutItemListFragment extends BaseAbstractFragment implements
     ListView mListViewItemList;
 
     public interface CheckoutItemListFragmentListener {
-        void onButtonBuy(ItemModel itemModel);
+        void onButtonBuy(int position);
     }
 
     public static CheckoutItemListFragment getInstance() {
@@ -59,12 +64,18 @@ public class CheckoutItemListFragment extends BaseAbstractFragment implements
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCheckoutItemListAdapter = new CheckoutItemListAdapter(getActivity(), this);
+        mCheckoutItemListAdapter = new CheckoutItemListAdapter(getActivity(), this, (
+                (SampleApplication) getActivity().getApplication()).getItemModelList());
         mListViewItemList.setAdapter(mCheckoutItemListAdapter);
     }
 
     @Override
-    public void onBuyItemClick(ItemModel itemModel) {
-        mCheckoutItemListFragmentListener.onButtonBuy(itemModel);
+    public void initialize() {
+
+    }
+
+    @Override
+    public void onBuyItemClick(int position) {
+        mCheckoutItemListFragmentListener.onButtonBuy(position);
     }
 }

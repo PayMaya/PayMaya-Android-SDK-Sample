@@ -10,10 +10,10 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;
-import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemListFragment;
+import paymaya.com.paymayaandroidcheckout.SampleApplication;
 import paymaya.com.paymayaandroidcheckout.models.ItemModel;
+import paymaya.com.paymayaandroidcheckout.utils.ListItem;
 import paymaya.com.paymayaandroidcheckout.utils.Utils;
-import paymaya.com.paymayaandroidcheckout.widgets.CardItemViewHolder;
 import paymaya.com.paymayaandroidcheckout.widgets.CheckoutItemListViewHolder;
 
 /**
@@ -25,13 +25,14 @@ public class CheckoutItemListAdapter extends BaseAdapter {
     private Context mContext;
 
     public interface CheckoutItemListAdapterListener {
-        void onBuyItemClick(ItemModel itemModel);
+        void onBuyItemClick(int position);
     }
 
-    public CheckoutItemListAdapter(Context context, CheckoutItemListAdapterListener checkoutItemListAdapterListener) {
+    public CheckoutItemListAdapter(Context context, CheckoutItemListAdapterListener
+            checkoutItemListAdapterListener, List<ItemModel> itemModels) {
         mContext = context;
         mCheckoutItemListAdapterListener = checkoutItemListAdapterListener;
-        mItemModels = Utils.getItemModels();
+        mItemModels = itemModels;
     }
 
     @Override
@@ -64,13 +65,13 @@ public class CheckoutItemListAdapter extends BaseAdapter {
         }
         Log.d("@Adapter", "image = " + itemModel.getThumbNails());
         Utils.loadImage(mContext, itemModel.getThumbNails(), holder.getImageViewItem());
-        holder.getTextViewItemName().setText(itemModel.getItem().getName());
-        holder.getTextViewItemPrice().setText("PHP " + itemModel.getItem().getItemAmount());
+        holder.getTextViewItemName().setText(itemModel.getItemName());
+        holder.getTextViewItemPrice().setText("PHP " + itemModel.getItemPrice());
 
         holder.setOnBuyItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCheckoutItemListAdapterListener.onBuyItemClick(itemModel);
+                mCheckoutItemListAdapterListener.onBuyItemClick(position);
             }
         });
         return view;
