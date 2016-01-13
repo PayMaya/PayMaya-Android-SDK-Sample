@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;
+import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemListFragment;
 import paymaya.com.paymayaandroidcheckout.models.ItemModel;
 import paymaya.com.paymayaandroidcheckout.utils.Utils;
 import paymaya.com.paymayaandroidcheckout.widgets.CardItemViewHolder;
@@ -19,11 +20,17 @@ import paymaya.com.paymayaandroidcheckout.widgets.CheckoutItemListViewHolder;
  * Created by jadeantolingaa on 1/12/16.
  */
 public class CheckoutItemListAdapter extends BaseAdapter {
+    private CheckoutItemListAdapterListener mCheckoutItemListAdapterListener;
     private List<ItemModel> mItemModels;
     private Context mContext;
 
-    public CheckoutItemListAdapter(Context context) {
+    public interface CheckoutItemListAdapterListener {
+        void onBuyItemClick(ItemModel itemModel);
+    }
+
+    public CheckoutItemListAdapter(Context context, CheckoutItemListAdapterListener checkoutItemListAdapterListener) {
         mContext = context;
+        mCheckoutItemListAdapterListener = checkoutItemListAdapterListener;
         mItemModels = Utils.getItemModels();
     }
 
@@ -43,9 +50,9 @@ public class CheckoutItemListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
         CheckoutItemListViewHolder holder;
-        ItemModel itemModel = mItemModels.get(position);
+        final ItemModel itemModel = mItemModels.get(position);
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,6 +66,13 @@ public class CheckoutItemListAdapter extends BaseAdapter {
         Utils.loadImage(mContext, itemModel.getThumbNails(), holder.getImageViewItem());
         holder.getTextViewItemName().setText(itemModel.getItem().getName());
         holder.getTextViewItemPrice().setText("PHP " + itemModel.getItem().getItemAmount());
+
+        holder.setOnBuyItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCheckoutItemListAdapterListener.onBuyItemClick(itemModel);
+            }
+        });
         return view;
     }
 }

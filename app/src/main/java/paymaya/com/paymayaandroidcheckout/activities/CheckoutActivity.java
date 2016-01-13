@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.paymaya.sdk.android.checkout.PayMayaCheckout;
 import com.paymaya.sdk.android.checkout.PayMayaCheckoutCallback;
+import com.paymaya.sdk.android.checkout.models.Buyer;
 import com.paymaya.sdk.android.checkout.models.Item;
 
 import java.util.ArrayList;
@@ -16,13 +17,14 @@ import java.util.List;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractActivity;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemListFragment;
-import paymaya.com.paymayaandroidcheckout.fragments.StoreFragment;
+import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
+import paymaya.com.paymayaandroidcheckout.models.ItemModel;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
  */
 public class CheckoutActivity extends BaseAbstractActivity implements PayMayaCheckoutCallback,
-        CheckoutItemListFragment.CheckoutItemListFragmentListener {
+        CheckoutItemListFragment.CheckoutItemListFragmentListener, UserInformationFragment.UserInformationFragmentListener {
     private static final int FRAGMENT_CONTAINER = R.id
             .paymaya_checkout_activity_store_fragment_container;
     private static final long PRODUCT_ID = 6319921;
@@ -64,6 +66,12 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
         payMayaCheckout = new PayMayaCheckout(CLIENT_KEY, this);
     }
 
+    @Override
+    public void onButtonBuy(ItemModel itemModel) {
+        replaceFragmentAddToBackStack(getActivity(), FRAGMENT_CONTAINER, new
+                UserInformationFragment());
+    }
+
     public List<Item> getItemList() {
         return mItemList;
     }
@@ -98,5 +106,10 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     @Override
     public void onCheckoutFailure() {
         Toast.makeText(this, "Result Failure", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onButtonCheckout(Buyer buyer) {
+
     }
 }

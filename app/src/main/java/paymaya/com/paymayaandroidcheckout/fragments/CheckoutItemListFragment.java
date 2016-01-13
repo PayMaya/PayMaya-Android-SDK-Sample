@@ -8,15 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.paymaya.sdk.android.checkout.models.Buyer;
+import com.paymaya.sdk.android.checkout.models.Item;
+
 import butterknife.Bind;
+import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.adapters.CheckoutItemListAdapter;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
+import paymaya.com.paymayaandroidcheckout.models.ItemModel;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
  */
-public class CheckoutItemListFragment extends BaseAbstractFragment {
+public class CheckoutItemListFragment extends BaseAbstractFragment implements
+        CheckoutItemListAdapter.CheckoutItemListAdapterListener {
     private CheckoutItemListFragmentListener mCheckoutItemListFragmentListener;
     private CheckoutItemListAdapter mCheckoutItemListAdapter;
 
@@ -24,7 +30,7 @@ public class CheckoutItemListFragment extends BaseAbstractFragment {
     ListView mListViewItemList;
 
     public interface CheckoutItemListFragmentListener {
-
+        void onButtonBuy(ItemModel itemModel);
     }
 
     public static CheckoutItemListFragment getInstance() {
@@ -45,14 +51,20 @@ public class CheckoutItemListFragment extends BaseAbstractFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+    Bundle savedInstanceState) {
         return inflater.inflate(R.layout.checkout_fragment_item_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCheckoutItemListAdapter = new CheckoutItemListAdapter(getActivity());
+        mCheckoutItemListAdapter = new CheckoutItemListAdapter(getActivity(), this);
         mListViewItemList.setAdapter(mCheckoutItemListAdapter);
+    }
+
+    @Override
+    public void onBuyItemClick(ItemModel itemModel) {
+        mCheckoutItemListFragmentListener.onButtonBuy(itemModel);
     }
 }

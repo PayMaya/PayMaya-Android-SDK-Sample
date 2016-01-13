@@ -2,6 +2,7 @@ package paymaya.com.paymayaandroidcheckout.widgets;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,9 @@ public class CheckoutItemListViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.checkout_adapter_item_list_text_view_item_price)
     TextView mTextViewItemPrice;
+
+    @Bind(R.id.checkout_adapter_item_list_button_buy)
+    Button mButtonBuy;
 
     public CheckoutItemListViewHolder(View itemView) {
         super(itemView);
@@ -50,5 +54,17 @@ public class CheckoutItemListViewHolder extends RecyclerView.ViewHolder {
 
     public void setTextViewItemPrice(TextView textViewItemPrice) {
         mTextViewItemPrice = textViewItemPrice;
+    }
+
+    public Button getButtonBuy() {
+        return mButtonBuy;
+    }
+
+    public void setButtonBuy(Button buttonBuy) {
+        mButtonBuy = buttonBuy;
+    }
+
+    public void setOnBuyItemClickListener(View.OnClickListener itemClickListener) {
+        mButtonBuy.setOnClickListener(itemClickListener);
     }
 }

@@ -15,4 +15,6 @@ public class SampleApplication extends Application {
         super.onCreate();
         PayMaya.init(CONFIG_ENVIRONMENT);
     }
+
+
 }
