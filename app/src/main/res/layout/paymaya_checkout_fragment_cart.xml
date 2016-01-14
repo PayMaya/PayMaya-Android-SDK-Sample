@@ -60,6 +60,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="Continue"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/background_white_stroke_black"/>
 
 </LinearLayout>
