@@ -10,7 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.paymaya.sdk.android.PayMaya;
+import com.paymaya.sdk.android.PayMayaConfig;
 import com.paymaya.sdk.android.payment.PayMayaPayment;
 import com.paymaya.sdk.android.payment.models.Card;
 import com.paymaya.sdk.android.payment.models.PaymentToken;
@@ -100,7 +100,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
         setContentView(R.layout.paymaya_sdk_activity_payment);
         ButterKnife.bind(this);
 
-        Log.i("SAMTEST", "" + PayMaya.getEnvironment());
+        Log.i("SAMTEST", "" + PayMayaConfig.getEnvironment());
         mUuid = UUID.randomUUID().toString();
     }
 
