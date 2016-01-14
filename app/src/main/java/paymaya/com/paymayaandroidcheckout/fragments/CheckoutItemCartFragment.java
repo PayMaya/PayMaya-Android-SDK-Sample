@@ -10,16 +10,26 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
+import paymaya.com.paymayaandroidcheckout.SampleApplication;
+import paymaya.com.paymayaandroidcheckout.adapters.CartItemAdapter;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
+import paymaya.com.paymayaandroidcheckout.models.ItemModel;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
  */
 public class CheckoutItemCartFragment extends BaseAbstractFragment {
     private CheckoutItemCartFragmentListener mCheckoutItemCartFragmentListener;
+
+    private CartItemAdapter mCartItemAdapter;
+    private HashMap<Integer, Integer> mHashMapItem;
+    private List<ItemModel> mItemModelList;
 
     @Bind(R.id.checkout_fragment_cart_text_view_sub_total)
     TextView mTextViewSubTotal;
@@ -75,6 +85,9 @@ public class CheckoutItemCartFragment extends BaseAbstractFragment {
 
     @Override
     public void initialize() {
-
+        mHashMapItem = ((SampleApplication) getActivity().getApplication()).getHashMap();
+        mItemModelList = ((SampleApplication) getActivity().getApplication()).getItemModelList();
+        mCartItemAdapter = new CartItemAdapter(getActivity(), mItemModelList, mHashMapItem);
+        mListViewItemCart.setAdapter(mCartItemAdapter);
     }
 }
