@@ -69,10 +69,10 @@ public class CartFragment extends BaseAbstractFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        StoreActivity storeActivity = (StoreActivity) getActivity();
-
-        mListAdapter = new ListAdapter(getActivity(), storeActivity.getItemList());
-        mRecyclerView.setAdapter(mListAdapter);
+//        StoreActivity storeActivity = (StoreActivity) getActivity();
+//
+//        mListAdapter = new ListAdapter(getActivity(), storeActivity.getItemList());
+//        mRecyclerView.setAdapter(mListAdapter);
     }
 
     @Override

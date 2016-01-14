@@ -4,23 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.paymaya.sdk.android.checkout.PayMayaCheckout;
 import com.paymaya.sdk.android.checkout.PayMayaCheckoutCallback;
 import com.paymaya.sdk.android.checkout.models.Buyer;
-import com.paymaya.sdk.android.checkout.models.Item;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractActivity;
+import paymaya.com.paymayaandroidcheckout.fragments.CartFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemDetailsFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemListFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
-import paymaya.com.paymayaandroidcheckout.utils.ListItem;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
@@ -28,7 +26,7 @@ import paymaya.com.paymayaandroidcheckout.utils.ListItem;
 public class CheckoutActivity extends BaseAbstractActivity implements PayMayaCheckoutCallback,
         CheckoutItemListFragment.CheckoutItemListFragmentListener, UserInformationFragment
                 .UserInformationFragmentListener, CheckoutItemDetailsFragment
-                .CheckoutItemDetailsFragmentListener {
+                .CheckoutItemDetailsFragmentListener, CartFragment.CartFragmentListener {
     private static final int FRAGMENT_CONTAINER = R.id
             .paymaya_checkout_activity_store_fragment_container;
     private static final long PRODUCT_ID = 6319921;
@@ -86,6 +84,11 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     }
 
     @Override
+    public void onButtonContinue() {
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         /**
@@ -111,5 +114,25 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     @Override
     public void onCheckoutFailure() {
         Toast.makeText(this, "Result Failure", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.checkout_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.checkout_menu_view_cart:
+                replaceFragmentAddToBackStack(getActivity(), FRAGMENT_CONTAINER,
+                        new CartFragment());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }
