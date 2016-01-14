@@ -141,4 +141,9 @@ public class UserInformationFragment extends BaseAbstractFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

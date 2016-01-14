@@ -39,6 +39,11 @@ public class StoreFragment extends BaseAbstractFragment {
         setViewPager();
     }
 
+    @Override
+    public void initialize() {
+
+    }
+
     private void setViewPager() {
         Log.d("@StoreFragment", "setViewPager");
         mViewPager = (ViewPager) getActivity().findViewById(R.id

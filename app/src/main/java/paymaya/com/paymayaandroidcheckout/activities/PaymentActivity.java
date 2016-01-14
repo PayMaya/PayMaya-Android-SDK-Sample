@@ -31,7 +31,7 @@ import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
  */
 public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog
         .OnDateSetListener {
-//    private static final String CLIENT_KEY = "pk-SjRNZLyr9OmovoHs2dXZ6obTxQ39YsPyc3f7oyrtNCX";
+
     private static final String CLIENT_KEY = "pk-OKkXqYUN1bkzgstdCRqJ6hlmzLUNYq6koeKBFVNxY7E";
 
     private PayMayaPayment mPayMayaPayment;
