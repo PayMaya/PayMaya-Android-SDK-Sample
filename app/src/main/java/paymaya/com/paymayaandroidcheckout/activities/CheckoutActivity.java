@@ -15,7 +15,7 @@ import com.paymaya.sdk.android.checkout.models.Buyer;
 
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractActivity;
-import paymaya.com.paymayaandroidcheckout.fragments.CartFragment;
+import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemCartFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemDetailsFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemListFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
@@ -24,9 +24,10 @@ import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
  * Created by jadeantolingaa on 1/12/16.
  */
 public class CheckoutActivity extends BaseAbstractActivity implements PayMayaCheckoutCallback,
-        CheckoutItemListFragment.CheckoutItemListFragmentListener, UserInformationFragment
-                .UserInformationFragmentListener, CheckoutItemDetailsFragment
-                .CheckoutItemDetailsFragmentListener, CartFragment.CartFragmentListener {
+        CheckoutItemListFragment.CheckoutItemListFragmentListener, CheckoutItemDetailsFragment
+                .CheckoutItemDetailsFragmentListener, CheckoutItemCartFragment
+                .CheckoutItemCartFragmentListener, UserInformationFragment
+                .UserInformationFragmentListener {
     private static final int FRAGMENT_CONTAINER = R.id
             .paymaya_checkout_activity_store_fragment_container;
     private static final long PRODUCT_ID = 6319921;
@@ -79,12 +80,12 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     }
 
     @Override
-    public void onButtonCheckout(Buyer buyer) {
+    public void onButtonContinueClick() {
 
     }
 
     @Override
-    public void onButtonContinue() {
+    public void onButtonCheckout(Buyer buyer) {
 
     }
 
@@ -128,7 +129,7 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
         switch (item.getItemId()) {
             case R.id.checkout_menu_view_cart:
                 replaceFragmentAddToBackStack(getActivity(), FRAGMENT_CONTAINER,
-                        new CartFragment());
+                        new CheckoutItemCartFragment());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
