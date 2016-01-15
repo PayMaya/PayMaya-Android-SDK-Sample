@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -109,7 +110,6 @@ public class UserInformationFragment extends BaseAbstractFragment {
     }
 
     public interface UserInformationFragmentListener {
-
         void onButtonCheckout(Buyer buyer);
     }
 
@@ -145,5 +145,11 @@ public class UserInformationFragment extends BaseAbstractFragment {
     @Override
     public void initialize() {
 
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.checkout_menu_view_cart).setVisible(false);
     }
 }

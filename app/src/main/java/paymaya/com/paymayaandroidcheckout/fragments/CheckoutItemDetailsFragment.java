@@ -65,7 +65,7 @@ public class CheckoutItemDetailsFragment extends BaseAbstractFragment {
     public void onButtonAddToCartClick(View view) {
         mHashMap.put(pos, itemQuantity);
         ((SampleApplication) getActivity().getApplication()).setHashMap(mHashMap);
-        getActivity().onBackPressed();
+        mCheckoutItemDetailsFragmentListener.onButtonAddToCartClick();
     }
 
     public interface CheckoutItemDetailsFragmentListener {

@@ -75,12 +75,13 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
 
     @Override
     public void onButtonAddToCartClick() {
-
+        onBackPressed();
     }
 
     @Override
     public void onButtonContinueClick() {
-
+        replaceFragmentAddToBackStack(getActivity(), FRAGMENT_CONTAINER,
+                new UserInformationFragment());
     }
 
     @Override
