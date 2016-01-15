@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -89,5 +89,35 @@ public class CheckoutItemCartFragment extends BaseAbstractFragment {
         mItemModelList = ((SampleApplication) getActivity().getApplication()).getItemModelList();
         mCartItemAdapter = new CartItemAdapter(getActivity(), mItemModelList, mHashMapItem);
         mListViewItemCart.setAdapter(mCartItemAdapter);
+
+        if (!mHashMapItem.isEmpty()) {
+            BigDecimal subTotal = new BigDecimal("0");
+            for (int i = 0; i <= mHashMapItem.size(); i++) {
+                if (mHashMapItem.get(i) != null) {
+                    if (mHashMapItem.get(i) != 0) {
+                        int quantity = mHashMapItem.get(i);
+                        subTotal = mItemModelList.get(i).getItemPrice().multiply(BigDecimal.valueOf
+                                (quantity));
+                    }
+                }
+            }
+            BigDecimal shippingFee = subTotal.multiply(BigDecimal.valueOf(0.05));
+            BigDecimal tax = subTotal.multiply(BigDecimal.valueOf(0.12));
+
+            BigDecimal extra = shippingFee.add(tax);
+            BigDecimal total = subTotal.add(extra);
+
+            mTextViewSubTotal.setText(subTotal + "");
+            mTextViewShippingFee.setText(shippingFee + "");
+            mTextViewTax.setText(tax + "");
+            mTextViewTotal.setText(total + "");
+        } else {
+            mTextViewSubTotal.setText(0.00 + "");
+            mTextViewShippingFee.setText(0.00 + "");
+            mTextViewTax.setText(0.00 + "");
+            mTextViewTotal.setText(0.00 + "");
+        }
     }
 }
+
+

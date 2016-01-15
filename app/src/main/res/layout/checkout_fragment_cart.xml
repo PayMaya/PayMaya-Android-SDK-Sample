@@ -19,7 +19,7 @@
             android:layout_marginRight="24dp"
             android:text="Item"
             android:textColor="@android:color/black"
-            android:textSize="24sp"/>
+            android:textSize="22sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_marginRight="24dp"
             android:text="Price"
             android:textColor="@android:color/black"
-            android:textSize="24sp"/>
+            android:textSize="22sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_marginRight="24dp"
             android:text="Quantity"
             android:textColor="@android:color/black"
-            android:textSize="24sp"/>
+            android:textSize="22sp"/>
 
     </LinearLayout>
 
@@ -43,7 +43,7 @@
         android:id="@+id/checkout_fragment_cart_list_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="12dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

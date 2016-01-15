@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -61,15 +62,20 @@ public class CartItemAdapter extends BaseAdapter {
             cartItemViewHolder = (CartItemViewHolder) convertView.getTag();
         }
 
-        cartItemViewHolder.getTextViewItemName().setText(itemModel.getItemName());
-        cartItemViewHolder.getTextViewItemPrice().setText("" + itemModel.getItemPrice());
+        if (mHashMapItemList.size() != 0) {
+            if (mHashMapItemList.get(position) != null) {
+                if (mHashMapItemList.get(position) != 0) {
 
-        //check if zero or null;
-        int quantity = mHashMapItemList.get(0);
+                    int quantity = mHashMapItemList.get(position);
+                    cartItemViewHolder.getTextViewItemName().setText(itemModel.getItemName());
+                    cartItemViewHolder.getTextViewItemPrice().setText("" + itemModel.getItemPrice());
 
-        cartItemViewHolder.getTextViewItemQuantity().setText("x " + quantity);
-        cartItemViewHolder.getTextViewTotalPrice().setText(itemModel.getItemPrice().intValue() *
-                quantity);
+                    cartItemViewHolder.getTextViewItemQuantity().setText("x " + quantity);
+                    BigDecimal total = itemModel.getItemPrice().multiply(BigDecimal.valueOf(quantity));
+                    cartItemViewHolder.getTextViewTotalPrice().setText(total + "");
+                }
+            }
+        }
 
         return convertView;
     }
