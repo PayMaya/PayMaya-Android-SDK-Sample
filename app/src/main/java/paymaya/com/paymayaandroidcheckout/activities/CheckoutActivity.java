@@ -41,7 +41,6 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
 
     private PayMayaCheckout payMayaCheckout;
 
-
     @Override
     public AppCompatActivity getActivity() {
         return this;

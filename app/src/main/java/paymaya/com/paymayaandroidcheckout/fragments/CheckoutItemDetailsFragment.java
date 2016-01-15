@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.SampleApplication;
+import paymaya.com.paymayaandroidcheckout.activities.CheckoutActivity;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
 import paymaya.com.paymayaandroidcheckout.models.ItemModel;
 import paymaya.com.paymayaandroidcheckout.utils.Utils;
@@ -117,5 +119,11 @@ public class CheckoutItemDetailsFragment extends BaseAbstractFragment {
         mHashMap = ((SampleApplication) getActivity().getApplication()).getHashMap();
         itemQuantity = mHashMap.get(pos) == null ? 0 : mHashMap.get(pos);
         mTextViewItemQuantity.setText(itemQuantity + "");
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.checkout_menu_view_cart).setVisible(false);
     }
 }
