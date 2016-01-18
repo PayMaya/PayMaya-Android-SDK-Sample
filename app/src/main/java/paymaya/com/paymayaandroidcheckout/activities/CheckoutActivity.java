@@ -1,6 +1,7 @@
 package paymaya.com.paymayaandroidcheckout.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -152,8 +153,8 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
             BigDecimal extra = shippingFee.add(tax);
             total = subTotal.add(extra);
         }
-        
-        return total.setScale(2, BigDecimal.ROUND_DOWN);
+
+        return total.setScale(2, BigDecimal.ROUND_UNNECESSARY);
     }
 
     private List<Item> getItems() {
