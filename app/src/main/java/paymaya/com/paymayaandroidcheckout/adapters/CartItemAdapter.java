@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;
-import paymaya.com.paymayaandroidcheckout.SampleApplication;
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
+import paymaya.com.paymayaandroidcheckout.models.Product;
 import paymaya.com.paymayaandroidcheckout.widgets.CartItemViewHolder;
 
 /**
@@ -20,36 +19,36 @@ import paymaya.com.paymayaandroidcheckout.widgets.CartItemViewHolder;
  */
 public class CartItemAdapter extends BaseAdapter {
     private Context mContext;
-    private List<ItemModel> mItemModelList;
+    private List<Product> mProductList;
     private HashMap<Integer, Integer> mHashMapItemList;
 
-    public CartItemAdapter(Context context, List<ItemModel> itemModels, HashMap<Integer, Integer>
+    public CartItemAdapter(Context context, List<Product> products, HashMap<Integer, Integer>
             map) {
 
         mContext = context;
-        mItemModelList = itemModels;
+        mProductList = products;
         mHashMapItemList = map;
     }
 
     @Override
     public int getCount() {
-        return mItemModelList.size();
+        return mProductList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mItemModelList.get(position);
+        return mProductList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return mItemModelList.get(position).hashCode();
+        return mProductList.get(position).hashCode();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         CartItemViewHolder cartItemViewHolder;
-        final ItemModel itemModel = mItemModelList.get(position);
+        final Product product = mProductList.get(position);
         if (null == convertView) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context
                     .LAYOUT_INFLATER_SERVICE);
@@ -67,11 +66,11 @@ public class CartItemAdapter extends BaseAdapter {
                 if (mHashMapItemList.get(position) != 0) {
 
                     int quantity = mHashMapItemList.get(position);
-                    cartItemViewHolder.getTextViewItemName().setText(itemModel.getItemName());
-                    cartItemViewHolder.getTextViewItemPrice().setText("" + itemModel.getItemPrice());
+                    cartItemViewHolder.getTextViewItemName().setText(product.getItemName());
+                    cartItemViewHolder.getTextViewItemPrice().setText("" + product.getItemPrice());
 
                     cartItemViewHolder.getTextViewItemQuantity().setText("x " + quantity);
-                    BigDecimal total = itemModel.getItemPrice().multiply(BigDecimal.valueOf(quantity));
+                    BigDecimal total = product.getItemPrice().multiply(BigDecimal.valueOf(quantity));
                     cartItemViewHolder.getTextViewTotalPrice().setText(total + "");
                 }
             }

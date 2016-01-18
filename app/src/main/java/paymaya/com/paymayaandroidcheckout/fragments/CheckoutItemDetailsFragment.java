@@ -16,9 +16,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.SampleApplication;
-import paymaya.com.paymayaandroidcheckout.activities.CheckoutActivity;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
+import paymaya.com.paymayaandroidcheckout.models.Product;
 import paymaya.com.paymayaandroidcheckout.utils.Utils;
 
 /**
@@ -109,11 +108,11 @@ public class CheckoutItemDetailsFragment extends BaseAbstractFragment {
         Bundle bundle = getArguments();
         if(null != bundle){
             pos = bundle.getInt(BUNDLE_TAG_ITEM_POSITION);
-            ItemModel itemModel = ((SampleApplication) getActivity().getApplication()).getItemModelList().get(pos);
-            mTextViewItemName.setText(itemModel.getItemName());
-            mTextViewItemDescription.setText(itemModel.getItemDescription());
-            mTextViewItemPrice.setText("PHP " + itemModel.getItemPrice());
-            Utils.loadImage(getActivity(), itemModel.getThumbNails(), mImageView);
+            Product product = ((SampleApplication) getActivity().getApplication()).getProductList().get(pos);
+            mTextViewItemName.setText(product.getItemName());
+            mTextViewItemDescription.setText(product.getItemDescription());
+            mTextViewItemPrice.setText("PHP " + product.getItemPrice());
+            Utils.loadImage(getActivity(), product.getThumbNails(), mImageView);
         }
 
         mHashMap = ((SampleApplication) getActivity().getApplication()).getHashMap();

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
+import paymaya.com.paymayaandroidcheckout.models.Product;
 import paymaya.com.paymayaandroidcheckout.utils.ListItem;
 
 /**
@@ -17,18 +17,18 @@ import paymaya.com.paymayaandroidcheckout.utils.ListItem;
 public class SampleApplication extends Application {
     private static final int CONFIG_ENVIRONMENT = PayMayaConfig.ENVIRONMENT_SANDBOX;
 
-    private List<ItemModel> mItemModelList = new ArrayList<>();
+    private List<Product> mProductList = new ArrayList<>();
     private HashMap<Integer, Integer> mHashMap = new HashMap<Integer, Integer>();
 
     @Override
     public void onCreate() {
         super.onCreate();
         PayMayaConfig.setEnvironment(CONFIG_ENVIRONMENT);
-        mItemModelList = ListItem.getItemModels();
+        mProductList = ListItem.getItemModels();
     }
 
-    public List<ItemModel> getItemModelList() {
-        return mItemModelList;
+    public List<Product> getProductList() {
+        return mProductList;
     }
 
     public HashMap<Integer, Integer> getHashMap() {

@@ -3,17 +3,8 @@ package paymaya.com.paymayaandroidcheckout.utils;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.paymaya.sdk.android.checkout.models.Item;
-import com.paymaya.sdk.android.checkout.models.TotalAmount;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import paymaya.com.paymayaandroidcheckout.R;
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
 
 /**
  * Created by jadeantolingaa on 11/3/15.
@@ -25,13 +16,13 @@ public class Utils {
 
     /**
      *
-     * @return List ItemModel
+     * @return List Product
      */
-//    public static List<ItemModel> getItemModels() {
+//    public static List<Product> getItemModels() {
 //        /**
 //         * Create List of ItemModels for Checkout object
 //         */
-//        List<ItemModel> mItemModels = new ArrayList<>();
+//        List<Product> mItemModels = new ArrayList<>();
 //        //item1
 //
 //        /**
@@ -53,18 +44,18 @@ public class Utils {
 //        item.setDescription("bag");
 //
 //        /**
-//         * Create ItemModel for List of Items
+//         * Create Product for List of Items
 //         *
 //         * @setmethods - Item ((Item) item)
 //         *
 //         */
-//        ItemModel itemModel = new ItemModel();
+//        Product itemModel = new Product();
 //        itemModel.setItem(item);
 //        itemModel.setThumbNails(R.mipmap.bag);
 //        mItemModels.add(itemModel);
 //
 //        //item2
-//        itemModel = new ItemModel();
+//        itemModel = new Product();
 //        totalAmount = new TotalAmount(BigDecimal.valueOf(1945.45), "PHP");
 //        item = new Item("Shoe One", 1, totalAmount);
 //        item.setSkuCode("CVG-096732");
@@ -75,7 +66,7 @@ public class Utils {
 //        mItemModels.add(itemModel);
 //
 //        //item3
-//        itemModel = new ItemModel();
+//        itemModel = new Product();
 //        totalAmount = new TotalAmount(BigDecimal.valueOf(5892.34), "PHP");
 //        item = new Item("Necklace One", 1, totalAmount);
 //        item.setSkuCode("CVG-096733");
@@ -86,7 +77,7 @@ public class Utils {
 //        mItemModels.add(itemModel);
 //
 //        //item4
-//        itemModel = new ItemModel();
+//        itemModel = new Product();
 //        totalAmount = new TotalAmount(BigDecimal.valueOf(545.56), "PHP");
 //        item = new Item("Tshirt One", 1, totalAmount);
 //        item.setSkuCode("CVG-096734");
@@ -97,7 +88,7 @@ public class Utils {
 //        mItemModels.add(itemModel);
 //
 //        //item5
-//        itemModel = new ItemModel();
+//        itemModel = new Product();
 //        totalAmount = new TotalAmount(BigDecimal.valueOf(645.67), "PHP");
 //        item = new Item("Tshirt Two", 1, totalAmount);
 //        item.setSkuCode("CVG-096735");
@@ -108,7 +99,7 @@ public class Utils {
 //        mItemModels.add(itemModel);
 //
 //        //item6
-//        itemModel = new ItemModel();
+//        itemModel = new Product();
 //        totalAmount = new TotalAmount(BigDecimal.valueOf(1645.03), "PHP");
 //        item = new Item("Shoe Two", 1, totalAmount);
 //        item.setSkuCode("CVG-096736");

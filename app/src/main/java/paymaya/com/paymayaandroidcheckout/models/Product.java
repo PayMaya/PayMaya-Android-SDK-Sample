@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * Created by jadeantolingaa on 11/3/15.
  */
-public class ItemModel {
+public class Product {
     private int mThumbNails;
     private BigDecimal mItemPrice;
     private String mItemName;

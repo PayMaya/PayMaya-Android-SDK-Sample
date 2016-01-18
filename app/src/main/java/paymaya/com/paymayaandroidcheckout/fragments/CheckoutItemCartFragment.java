@@ -18,10 +18,9 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.SampleApplication;
-import paymaya.com.paymayaandroidcheckout.activities.CheckoutActivity;
 import paymaya.com.paymayaandroidcheckout.adapters.CartItemAdapter;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
+import paymaya.com.paymayaandroidcheckout.models.Product;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
@@ -31,7 +30,7 @@ public class CheckoutItemCartFragment extends BaseAbstractFragment {
 
     private CartItemAdapter mCartItemAdapter;
     private HashMap<Integer, Integer> mHashMapItem;
-    private List<ItemModel> mItemModelList;
+    private List<Product> mProductList;
 
     @Bind(R.id.checkout_fragment_cart_text_view_sub_total)
     TextView mTextViewSubTotal;
@@ -88,8 +87,8 @@ public class CheckoutItemCartFragment extends BaseAbstractFragment {
     @Override
     public void initialize() {
         mHashMapItem = ((SampleApplication) getActivity().getApplication()).getHashMap();
-        mItemModelList = ((SampleApplication) getActivity().getApplication()).getItemModelList();
-        mCartItemAdapter = new CartItemAdapter(getActivity(), mItemModelList, mHashMapItem);
+        mProductList = ((SampleApplication) getActivity().getApplication()).getProductList();
+        mCartItemAdapter = new CartItemAdapter(getActivity(), mProductList, mHashMapItem);
         mListViewItemCart.setAdapter(mCartItemAdapter);
 
         if (!mHashMapItem.isEmpty()) {
@@ -98,7 +97,7 @@ public class CheckoutItemCartFragment extends BaseAbstractFragment {
                 if (mHashMapItem.get(i) != null) {
                     if (mHashMapItem.get(i) != 0) {
                         int quantity = mHashMapItem.get(i);
-                        subTotal = mItemModelList.get(i).getItemPrice().multiply(BigDecimal.valueOf
+                        subTotal = mProductList.get(i).getItemPrice().multiply(BigDecimal.valueOf
                                 (quantity));
                     }
                 }

@@ -10,9 +10,7 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;
-import paymaya.com.paymayaandroidcheckout.SampleApplication;
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
-import paymaya.com.paymayaandroidcheckout.utils.ListItem;
+import paymaya.com.paymayaandroidcheckout.models.Product;
 import paymaya.com.paymayaandroidcheckout.utils.Utils;
 import paymaya.com.paymayaandroidcheckout.widgets.CheckoutItemListViewHolder;
 
@@ -21,7 +19,7 @@ import paymaya.com.paymayaandroidcheckout.widgets.CheckoutItemListViewHolder;
  */
 public class CheckoutItemListAdapter extends BaseAdapter {
     private CheckoutItemListAdapterListener mCheckoutItemListAdapterListener;
-    private List<ItemModel> mItemModels;
+    private List<Product> mProducts;
     private Context mContext;
 
     public interface CheckoutItemListAdapterListener {
@@ -29,31 +27,31 @@ public class CheckoutItemListAdapter extends BaseAdapter {
     }
 
     public CheckoutItemListAdapter(Context context, CheckoutItemListAdapterListener
-            checkoutItemListAdapterListener, List<ItemModel> itemModels) {
+            checkoutItemListAdapterListener, List<Product> products) {
         mContext = context;
         mCheckoutItemListAdapterListener = checkoutItemListAdapterListener;
-        mItemModels = itemModels;
+        mProducts = products;
     }
 
     @Override
     public int getCount() {
-        return mItemModels.size();
+        return mProducts.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mItemModels.get(position);
+        return mProducts.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return mItemModels.get(position).hashCode();
+        return mProducts.get(position).hashCode();
     }
 
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
         CheckoutItemListViewHolder holder;
-        final ItemModel itemModel = mItemModels.get(position);
+        final Product product = mProducts.get(position);
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -63,10 +61,10 @@ public class CheckoutItemListAdapter extends BaseAdapter {
         } else {
             holder = (CheckoutItemListViewHolder) view.getTag();
         }
-        Log.d("@Adapter", "image = " + itemModel.getThumbNails());
-        Utils.loadImage(mContext, itemModel.getThumbNails(), holder.getImageViewItem());
-        holder.getTextViewItemName().setText(itemModel.getItemName());
-        holder.getTextViewItemPrice().setText("PHP " + itemModel.getItemPrice());
+        Log.d("@Adapter", "image = " + product.getThumbNails());
+        Utils.loadImage(mContext, product.getThumbNails(), holder.getImageViewItem());
+        holder.getTextViewItemName().setText(product.getItemName());
+        holder.getTextViewItemPrice().setText("PHP " + product.getItemPrice());
 
         holder.setOnBuyItemClickListener(new View.OnClickListener() {
             @Override

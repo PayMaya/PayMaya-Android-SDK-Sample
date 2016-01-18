@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.etsy.android.grid.StaggeredGridView;
 import com.paymaya.sdk.android.checkout.models.Item;
@@ -16,7 +14,6 @@ import butterknife.Bind;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.adapters.CardItemAdapter;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
 
 /**
  * Created by jadeantolingaa on 11/2/15.
@@ -63,7 +60,7 @@ public class ItemListFragment extends BaseAbstractFragment {
 //        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                ItemModel itemModel = ((ItemModel) mGridView.getAdapter().getItem(position));
+//                Product itemModel = ((Product) mGridView.getAdapter().getItem(position));
 //                mItemListFragmentListenerCallback.onItemClick(itemModel.getItem());
 //                Toast.makeText(getActivity(), itemModel.getItem().getName(), Toast.LENGTH_SHORT)
 //                        .show();

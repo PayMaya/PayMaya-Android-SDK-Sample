@@ -9,19 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.paymaya.sdk.android.checkout.models.Buyer;
-import com.paymaya.sdk.android.checkout.models.Item;
-
 import java.util.HashMap;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.SampleApplication;
-import paymaya.com.paymayaandroidcheckout.activities.CheckoutActivity;
 import paymaya.com.paymayaandroidcheckout.adapters.CheckoutItemListAdapter;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
-import paymaya.com.paymayaandroidcheckout.models.ItemModel;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
@@ -66,7 +60,7 @@ public class CheckoutItemListFragment extends BaseAbstractFragment implements
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mCheckoutItemListAdapter = new CheckoutItemListAdapter(getActivity(), this, (
-                (SampleApplication) getActivity().getApplication()).getItemModelList());
+                (SampleApplication) getActivity().getApplication()).getProductList());
         mListViewItemList.setAdapter(mCheckoutItemListAdapter);
 
         HashMap<Integer, Integer> map = ((SampleApplication) getActivity().getApplication()).getHashMap();
