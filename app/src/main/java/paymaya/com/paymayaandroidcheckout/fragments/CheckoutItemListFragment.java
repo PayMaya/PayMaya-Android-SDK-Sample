@@ -62,8 +62,6 @@ public class CheckoutItemListFragment extends BaseAbstractFragment implements
         mCheckoutItemListAdapter = new CheckoutItemListAdapter(getActivity(), this, (
                 (SampleApplication) getActivity().getApplication()).getProductList());
         mListViewItemList.setAdapter(mCheckoutItemListAdapter);
-
-        HashMap<Integer, Integer> map = ((SampleApplication) getActivity().getApplication()).getHashMap();
     }
 
     @Override

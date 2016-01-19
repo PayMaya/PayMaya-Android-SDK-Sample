@@ -153,8 +153,7 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
             BigDecimal extra = shippingFee.add(tax);
             total = subTotal.add(extra);
         }
-
-        return total.setScale(2, BigDecimal.ROUND_UNNECESSARY);
+        return total.setScale(2, BigDecimal.ROUND_DOWN);
     }
 
     private List<Item> getItems() {
