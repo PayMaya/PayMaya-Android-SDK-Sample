@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/paymaya_sdk_activity_button_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_blue_stroke_white"
+        android:text="Checkout"
+        android:textSize="18dp"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Demonstrates purchase through Checkout API"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:layout_marginBottom="18dp"/>
+
+    <Button
+        android:id="@+id/paymaya_sdk_activity_button_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_blue_stroke_white"
+        android:text="Payments"
+        android:textSize="18dp"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Demonstrates purchase through Payments API"
+        android:textSize="16dp"
+        android:gravity="center"/>
+
+</LinearLayout>

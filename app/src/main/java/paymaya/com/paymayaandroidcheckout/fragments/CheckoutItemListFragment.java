@@ -64,10 +64,6 @@ public class CheckoutItemListFragment extends BaseAbstractFragment implements
         mListViewItemList.setAdapter(mCheckoutItemListAdapter);
 
         HashMap<Integer, Integer> map = ((SampleApplication) getActivity().getApplication()).getHashMap();
-
-        Toast.makeText(getContext(), "Position 0 : " + map.get(0) +
-                                    "Position 1 : " + map.get(1) +
-                                    "Position 2 : " + map.get(2), Toast.LENGTH_SHORT).show();
     }
 
     @Override

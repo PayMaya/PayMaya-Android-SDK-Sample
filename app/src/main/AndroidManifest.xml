@@ -18,8 +18,9 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         <!--</activity>-->
+
         <activity
-            android:name=".activities.CheckoutActivity"
+            android:name=".activities.SdkActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -27,6 +28,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.CheckoutActivity"
+            android:label="@string/app_name_checkout"
+            android:theme="@style/AppTheme">
+
         </activity>
 
         <activity
