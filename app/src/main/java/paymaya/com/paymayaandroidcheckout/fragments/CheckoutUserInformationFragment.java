@@ -22,7 +22,7 @@ import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
 /**
  * Created by jadeantolingaa on 11/3/15.
  */
-public class UserInformationFragment extends BaseAbstractFragment {
+public class CheckoutUserInformationFragment extends BaseAbstractFragment {
     private UserInformationFragmentListener mUserInformationFragmentListenerCallback;
 
     @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_first_name)
@@ -113,9 +113,9 @@ public class UserInformationFragment extends BaseAbstractFragment {
         void onButtonCheckout(Buyer buyer);
     }
 
-    public static UserInformationFragment getInstance() {
-        UserInformationFragment userInformationFragment = new UserInformationFragment();
-        return userInformationFragment;
+    public static CheckoutUserInformationFragment getInstance() {
+        CheckoutUserInformationFragment checkoutUserInformationFragment = new CheckoutUserInformationFragment();
+        return checkoutUserInformationFragment;
     }
 
     @Nullable

@@ -12,7 +12,7 @@ import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.models.Product;
-import paymaya.com.paymayaandroidcheckout.widgets.CartItemViewHolder;
+import paymaya.com.paymayaandroidcheckout.widgets.CheckoutCartItemViewHolder;
 
 /**
  * Created by jadeantolingaa on 1/14/16.
@@ -47,18 +47,18 @@ public class CartItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CartItemViewHolder cartItemViewHolder;
+        CheckoutCartItemViewHolder checkoutCartItemViewHolder;
         final Product product = mProductList.get(position);
         if (null == convertView) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context
                     .LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.checkout_fragment_cart_list_item,
                     parent, false);
-            cartItemViewHolder = new CartItemViewHolder(convertView);
+            checkoutCartItemViewHolder = new CheckoutCartItemViewHolder(convertView);
 
-            convertView.setTag(cartItemViewHolder);
+            convertView.setTag(checkoutCartItemViewHolder);
         } else {
-            cartItemViewHolder = (CartItemViewHolder) convertView.getTag();
+            checkoutCartItemViewHolder = (CheckoutCartItemViewHolder) convertView.getTag();
         }
 
         if (mHashMapItemList.size() != 0) {
@@ -66,12 +66,12 @@ public class CartItemAdapter extends BaseAdapter {
                 if (mHashMapItemList.get(position) != 0) {
 
                     int quantity = mHashMapItemList.get(position);
-                    cartItemViewHolder.getTextViewItemName().setText(product.getItemName());
-                    cartItemViewHolder.getTextViewItemPrice().setText("" + product.getItemPrice());
+                    checkoutCartItemViewHolder.getTextViewItemName().setText(product.getItemName());
+                    checkoutCartItemViewHolder.getTextViewItemPrice().setText("" + product.getItemPrice());
 
-                    cartItemViewHolder.getTextViewItemQuantity().setText("x " + quantity);
+                    checkoutCartItemViewHolder.getTextViewItemQuantity().setText("x " + quantity);
                     BigDecimal total = product.getItemPrice().multiply(BigDecimal.valueOf(quantity));
-                    cartItemViewHolder.getTextViewTotalPrice().setText(total + "");
+                    checkoutCartItemViewHolder.getTextViewTotalPrice().setText(total + "");
                 }
             }
         }

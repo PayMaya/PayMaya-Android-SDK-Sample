@@ -26,7 +26,7 @@ import paymaya.com.paymayaandroidcheckout.base.BaseAbstractActivity;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemCartFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemDetailsFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemListFragment;
-import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
+import paymaya.com.paymayaandroidcheckout.fragments.CheckoutUserInformationFragment;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
@@ -34,7 +34,7 @@ import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
 public class CheckoutActivity extends BaseAbstractActivity implements PayMayaCheckoutCallback,
         CheckoutItemListFragment.CheckoutItemListFragmentListener, CheckoutItemDetailsFragment
                 .CheckoutItemDetailsFragmentListener, CheckoutItemCartFragment
-                .CheckoutItemCartFragmentListener, UserInformationFragment
+                .CheckoutItemCartFragmentListener, CheckoutUserInformationFragment
                 .UserInformationFragmentListener {
     private static final int FRAGMENT_CONTAINER = R.id
             .paymaya_checkout_activity_store_fragment_container;
@@ -57,7 +57,7 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.paymaya_checkout_activity_store);
+        setContentView(R.layout.paymaya_sdk_activity_checkout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,7 +89,7 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     @Override
     public void onButtonContinueClick() {
         replaceFragmentAddToBackStack(getActivity(), FRAGMENT_CONTAINER,
-                new UserInformationFragment());
+                new CheckoutUserInformationFragment());
     }
 
     @Override

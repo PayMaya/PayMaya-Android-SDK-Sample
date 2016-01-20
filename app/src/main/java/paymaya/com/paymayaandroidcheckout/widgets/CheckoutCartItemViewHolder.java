@@ -11,7 +11,7 @@ import paymaya.com.paymayaandroidcheckout.R;
 /**
  * Created by jadeantolingaa on 1/14/16.
  */
-public class CartItemViewHolder extends RecyclerView.ViewHolder {
+public class CheckoutCartItemViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.checkout_fragment_cart_list_item_text_view_item_name)
     TextView mTextViewItemName;
 
@@ -24,7 +24,7 @@ public class CartItemViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.checkout_fragment_cart_list_item_text_view_item_total_price)
     TextView mTextViewTotalPrice;
 
-    public CartItemViewHolder(View itemView) {
+    public CheckoutCartItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
