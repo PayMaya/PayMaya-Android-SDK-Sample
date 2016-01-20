@@ -1,11 +1,9 @@
 package paymaya.com.paymayaandroidcheckout.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,8 +18,6 @@ import com.paymaya.sdk.android.checkout.models.RedirectUrl;
 import com.paymaya.sdk.android.checkout.models.TotalAmount;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import paymaya.com.paymayaandroidcheckout.R;
@@ -31,8 +27,6 @@ import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemCartFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemDetailsFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.CheckoutItemListFragment;
 import paymaya.com.paymayaandroidcheckout.fragments.UserInformationFragment;
-import paymaya.com.paymayaandroidcheckout.models.Product;
-import paymaya.com.paymayaandroidcheckout.utils.ListItem;
 
 /**
  * Created by jadeantolingaa on 1/12/16.
@@ -54,8 +48,6 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     private static final String CLIENT_KEY = "pk-iaioBC2pbY6d3BVRSebsJxghSHeJDW4n6navI7tYdrN";
 
     private PayMayaCheckout payMayaCheckout;
-    private List<Product> mProductList;
-    private HashMap<Integer, Integer> mHashMapItem;
 
     @Override
     public AppCompatActivity getActivity() {
@@ -69,9 +61,6 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mHashMapItem = ((SampleApplication) getActivity().getApplication()).getHashMap();
-        mProductList = ((SampleApplication) getActivity().getApplication()).getProductList();
 
         /**
          * Initialize PayMayaCheckout instance variable at onCreate
@@ -105,6 +94,8 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
 
     @Override
     public void onButtonCheckout(Buyer buyer) {
+        BigDecimal total = ((SampleApplication) getApplication()).getTotal();
+        List<Item> listItem = ((SampleApplication) getApplication()).getItems();
         /**
          * Create RedirectUrl object to be needed in creating Checkout object
          * @params - (String) success_url, (String) failure_url, (String) cancel_url
@@ -115,14 +106,14 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
          * Create TotalAmount object to be needed in creating Checkout object
          * @params - (BigDecimal) total amount of item, (String) currency
          */
-        TotalAmount totalAmount = new TotalAmount(getTotal(), CHECKOUT_CURRENCY);
+        TotalAmount totalAmount = new TotalAmount(total, CHECKOUT_CURRENCY);
 
         /**
          * Create Checkout object to be passed in executing checkout sdk
          * @params - (TotalAmount) totalAmount, (Buyer) buyer, (List<Item>) item,
          *          (String) reference_number, (RedirectUrl) redirect_url
          */
-        Checkout checkout = new Checkout(totalAmount, buyer, getItems(),
+        Checkout checkout = new Checkout(totalAmount, buyer, listItem,
                 CHECKOUT_REQUEST_REFERENCE_NUMBER, redirectUrl);
 
         /**
@@ -131,50 +122,6 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
          */
         payMayaCheckout.execute(this, checkout);
 
-    }
-
-    private BigDecimal getTotal() {
-        BigDecimal total = new BigDecimal("0");
-
-        if (!mHashMapItem.isEmpty()) {
-            BigDecimal subTotal = new BigDecimal("0");
-            for (int i = 0; i <= mHashMapItem.size(); i++) {
-                if (mHashMapItem.get(i) != null) {
-                    if (mHashMapItem.get(i) != 0) {
-                        int quantity = mHashMapItem.get(i);
-                        subTotal = mProductList.get(i).getItemPrice().multiply(BigDecimal.valueOf
-                                (quantity));
-                    }
-                }
-            }
-            BigDecimal shippingFee = subTotal.multiply(BigDecimal.valueOf(0.05));
-            BigDecimal tax = subTotal.multiply(BigDecimal.valueOf(0.12));
-
-            BigDecimal extra = shippingFee.add(tax);
-            total = subTotal.add(extra);
-        }
-        return total.setScale(2, BigDecimal.ROUND_DOWN);
-    }
-
-    private List<Item> getItems() {
-        List<Item> mItems = new ArrayList<>();
-        Item item;
-
-        for (int i = 0; i <= mProductList.size(); i++) {
-            if (!mHashMapItem.isEmpty()) {
-                if (mHashMapItem.get(i) != null) {
-                    if (mHashMapItem.get(i) != 0) {
-                        int quantity = mHashMapItem.get(i);
-                        TotalAmount amount = new TotalAmount(mProductList.get(i).getItemPrice()
-                                .multiply(BigDecimal.valueOf(quantity)), "PHP");
-                        item = new Item(mProductList.get(i).getItemName(), quantity, amount);
-                        mItems.add(item);
-                    }
-                }
-            }
-        }
-
-        return mItems;
     }
 
     @Override

@@ -31,6 +31,7 @@ public class CheckoutItemCartFragment extends BaseAbstractFragment {
     private CartItemAdapter mCartItemAdapter;
     private HashMap<Integer, Integer> mHashMapItem;
     private List<Product> mProductList;
+    private SampleApplication mSampleApplication;
 
     @Bind(R.id.checkout_fragment_cart_text_view_sub_total)
     TextView mTextViewSubTotal;
@@ -86,38 +87,21 @@ public class CheckoutItemCartFragment extends BaseAbstractFragment {
 
     @Override
     public void initialize() {
-        mHashMapItem = ((SampleApplication) getActivity().getApplication()).getHashMap();
-        mProductList = ((SampleApplication) getActivity().getApplication()).getProductList();
+        mSampleApplication = ((SampleApplication) getActivity().getApplication());
+        mHashMapItem = mSampleApplication.getHashMap();
+        mProductList = mSampleApplication.getProductList();
         mCartItemAdapter = new CartItemAdapter(getActivity(), mProductList, mHashMapItem);
         mListViewItemCart.setAdapter(mCartItemAdapter);
 
-        if (!mHashMapItem.isEmpty()) {
-            BigDecimal subTotal = new BigDecimal("0");
-            for (int i = 0; i <= mHashMapItem.size(); i++) {
-                if (mHashMapItem.get(i) != null) {
-                    if (mHashMapItem.get(i) != 0) {
-                        int quantity = mHashMapItem.get(i);
-                        subTotal = mProductList.get(i).getItemPrice().multiply(BigDecimal.valueOf
-                                (quantity));
-                    }
-                }
-            }
-            BigDecimal shippingFee = subTotal.multiply(BigDecimal.valueOf(0.05));
-            BigDecimal tax = subTotal.multiply(BigDecimal.valueOf(0.12));
+        BigDecimal total = mSampleApplication.getTotal();
+        BigDecimal subTotal = mSampleApplication.getSubtotal();
+        BigDecimal shippingFee = mSampleApplication.getShippingFee();
+        BigDecimal tax = mSampleApplication.getTax();
 
-            BigDecimal extra = shippingFee.add(tax);
-            BigDecimal total = subTotal.add(extra);
-
-            mTextViewSubTotal.setText(subTotal + "");
-            mTextViewShippingFee.setText(shippingFee + "");
-            mTextViewTax.setText(tax + "");
-            mTextViewTotal.setText(total + "");
-        } else {
-            mTextViewSubTotal.setText(0.00 + "");
-            mTextViewShippingFee.setText(0.00 + "");
-            mTextViewTax.setText(0.00 + "");
-            mTextViewTotal.setText(0.00 + "");
-        }
+        mTextViewSubTotal.setText(subTotal + "");
+        mTextViewShippingFee.setText(shippingFee + "");
+        mTextViewTax.setText(tax + "");
+        mTextViewTotal.setText(total + "");
     }
 
     @Override
