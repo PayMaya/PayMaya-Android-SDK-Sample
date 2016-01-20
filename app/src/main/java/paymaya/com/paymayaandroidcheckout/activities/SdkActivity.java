@@ -17,13 +17,11 @@ public class SdkActivity extends BaseAbstractActivity {
     @OnClick(R.id.paymaya_sdk_activity_button_checkout)
     public void onButtonCheckoutClick() {
         startActivity(new Intent(this, CheckoutActivity.class));
-        finish();
     }
 
     @OnClick(R.id.paymaya_sdk_activity_button_payment)
     public void onButtonPaymentClick() {
         startActivity(new Intent(this, PaymentActivity.class));
-        finish();
     }
 
     @Override
