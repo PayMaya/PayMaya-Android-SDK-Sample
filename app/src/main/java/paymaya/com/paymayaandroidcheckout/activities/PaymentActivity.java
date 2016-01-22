@@ -1,18 +1,22 @@
 package paymaya.com.paymayaandroidcheckout.activities;
 
 import android.app.DatePickerDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.paymaya.sdk.android.PayMayaConfig;
 import com.paymaya.sdk.android.payment.PayMayaPayment;
+import com.paymaya.sdk.android.payment.PayMayaPaymentException;
 import com.paymaya.sdk.android.payment.models.Card;
 import com.paymaya.sdk.android.payment.models.PaymentToken;
 
@@ -33,7 +37,9 @@ import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
 public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog
         .OnDateSetListener {
 
-    private static final String CLIENT_KEY = "pk-OKkXqYUN1bkzgstdCRqJ6hlmzLUNYq6koeKBFVNxY7E";
+    private static final String CLIENT_KEY = "pk-sHQWci2P410ppwFQvsi7IQCpHsIjafy74jrhYb8qfxu";
+    // To test expired key, use the following:
+    // private static final String CLIENT_KEY = "pk-OKkXqYUN1bkzgstdCRqJ6hlmzLUNYq6koeKBFVNxY7E";
 
     private PayMayaPayment mPayMayaPayment;
     private Card card;
@@ -49,6 +55,12 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
 
     @Bind(R.id.paymaya_sdk_activity_payment_edit_text_cvc)
     EditText mEditTextCvc;
+
+    @Bind(R.id.paymaya_sdk_activity_payment_edit_text_payment_token)
+    EditText mEditTextPaymentToken;
+
+    @Bind(R.id.paymaya_sdk_activity_payment_button_copy_to_clipboard)
+    Button mButtonCopyToClipboard;
 
     @OnClick(R.id.paymaya_sdk_activity_payment_edit_text_date)
     public void onDateClicked() {
@@ -74,19 +86,56 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
         mPayMayaPayment = new PayMayaPayment(CLIENT_KEY, card);
 
         new AsyncTask<Void, Void, PaymentToken>() {
+            private String exceptionMessage;
+
             @Override
             protected PaymentToken doInBackground(Void... params) {
-                return mPayMayaPayment.getPaymentToken();
+                try {
+                    return mPayMayaPayment.getPaymentToken();
+                }
+                catch(PayMayaPaymentException e) {
+                    exceptionMessage = e.getMessage();
+                    return null;
+                }
             }
 
             @Override
             protected void onPostExecute(PaymentToken paymentToken) {
-                Toast.makeText(getApplicationContext(), paymentToken.getPaymentTokenId() +
-                                "Date: " + paymentToken.getCreatedAt().toString(),
+                if (null == exceptionMessage) {
+                    final String paymentTokenId = paymentToken.getPaymentTokenId();
+                    Toast.makeText(getApplicationContext(), paymentTokenId +
+                                    "Date: " + paymentToken.getCreatedAt().toString(),
+                            Toast.LENGTH_SHORT).show();
+                    mEditTextPaymentToken.setText(paymentTokenId);
+                    showPaymentToken();
+                    return;
+                }
+
+                Toast.makeText(getApplicationContext(), "Error: " + exceptionMessage,
                         Toast.LENGTH_SHORT).show();
             }
         }.execute();
 
+    }
+
+    @OnClick(R.id.paymaya_sdk_activity_payment_button_copy_to_clipboard)
+    public void onCopyToClipboardButtonClicked() {
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("PaymentToken",
+                mEditTextPaymentToken.getText().toString());
+        clipboardManager.setPrimaryClip(clipData);
+        Toast.makeText(getApplicationContext(), "Payment Token copied to clipboard.",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void showPaymentToken() {
+        mEditTextPaymentToken.setVisibility(View.VISIBLE);
+        mButtonCopyToClipboard.setVisibility(View.VISIBLE);
+    }
+
+    private void hidePaymentToken() {
+        mEditTextPaymentToken.setVisibility(View.INVISIBLE);
+        mButtonCopyToClipboard.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -100,6 +149,8 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
 
         Log.i("SAMTEST", "" + PayMayaConfig.getEnvironment());
         mUuid = UUID.randomUUID().toString();
+
+        hidePaymentToken();
     }
 
     @Override
