@@ -129,6 +129,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
     }
 
     private void showPaymentToken() {
+        Log.d("@showPayment", "visible");
         mEditTextPaymentToken.setVisibility(View.VISIBLE);
         mButtonCopyToClipboard.setVisibility(View.VISIBLE);
     }
