@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile 'com.paymaya:sdk-android:0.5.1'
+    compile 'com.paymaya:sdk-android:0.5.4'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
@@ -29,3 +29,4 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.etsy.android.grid:library:1.0.5'
 }
+
