@@ -46,6 +46,8 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     private static final String CHECKOUT_REQUEST_REFERENCE_NUMBER = "000141386713";
     private static final String CHECKOUT_CURRENCY = "PHP";
     private static final String CLIENT_KEY = "pk-iaioBC2pbY6d3BVRSebsJxghSHeJDW4n6navI7tYdrN";
+    // To test invalid key:
+    // private static final String CLIENT_KEY = "pk-efIBp84VlBftINECtEvIagsJPVW1OMwNNjbjjD4oj4z";
 
     private PayMayaCheckout payMayaCheckout;
 
@@ -148,8 +150,8 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     }
 
     @Override
-    public void onCheckoutFailure() {
-        Toast.makeText(this, "Result Failure", Toast.LENGTH_SHORT).show();
+    public void onCheckoutFailure(String message) {
+        Toast.makeText(this, "Result Failure: " + message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
