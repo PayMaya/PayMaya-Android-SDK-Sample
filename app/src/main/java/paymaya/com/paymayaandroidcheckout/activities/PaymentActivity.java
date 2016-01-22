@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -88,17 +89,14 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
 
     }
 
-    private void showDate() {
-        MonthYearPickerDialog pd = new MonthYearPickerDialog();
-        pd.setListener(this);
-        pd.show(getFragmentManager(), "MonthYearPickerDialog");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paymaya_sdk_activity_payment);
         ButterKnife.bind(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Log.i("SAMTEST", "" + PayMayaConfig.getEnvironment());
         mUuid = UUID.randomUUID().toString();
@@ -115,5 +113,11 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
 
         mMonth = monthOfYear > 10 ? monthOfYear + "" : "0" + monthOfYear;
         mYear = year + "";
+    }
+
+    private void showDate() {
+        MonthYearPickerDialog pd = new MonthYearPickerDialog();
+        pd.setListener(this);
+        pd.show(getFragmentManager(), "MonthYearPickerDialog");
     }
 }
