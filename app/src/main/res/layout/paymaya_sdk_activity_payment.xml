@@ -93,6 +93,7 @@
             android:id="@+id/paymaya_sdk_activity_payment_edit_text_payment_token"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:enabled="false"
             android:singleLine="true"
             android:layout_marginBottom="12dp"
