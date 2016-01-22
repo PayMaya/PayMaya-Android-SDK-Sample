@@ -48,9 +48,25 @@
 
     <Button
         android:id="@+id/paymaya_sdk_activity_payment_button_pay"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:text="Payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Payment Token"
         android:layout_gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/paymaya_sdk_activity_payment_edit_text_payment_token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:singleLine="true"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/paymaya_sdk_activity_payment_button_copy_to_clipboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Copy Token to Clipboard"
+        android:visibility="invisible"/>
 
 </LinearLayout>
