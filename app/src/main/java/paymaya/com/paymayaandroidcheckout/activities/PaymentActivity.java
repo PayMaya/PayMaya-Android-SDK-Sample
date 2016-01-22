@@ -32,7 +32,9 @@ import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
 public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog
         .OnDateSetListener {
 
-    private static final String CLIENT_KEY = "pk-OKkXqYUN1bkzgstdCRqJ6hlmzLUNYq6koeKBFVNxY7E";
+    private static final String CLIENT_KEY = "pk-sHQWci2P410ppwFQvsi7IQCpHsIjafy74jrhYb8qfxu";
+    // To test expired key, use the following:
+    // private static final String CLIENT_KEY = "pk-OKkXqYUN1bkzgstdCRqJ6hlmzLUNYq6koeKBFVNxY7E";
 
     private PayMayaPayment mPayMayaPayment;
     private Card card;
