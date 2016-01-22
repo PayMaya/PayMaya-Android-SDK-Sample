@@ -81,29 +81,34 @@
         <Button
             android:id="@+id/paymaya_sdk_activity_payment_button_pay"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:text="Generate Payment Token"
             android:textSize="18sp"
             android:textColor="@android:color/white"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/background_blue_stroke_white"/>
 
+        <EditText
+            android:id="@+id/paymaya_sdk_activity_payment_edit_text_payment_token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:singleLine="true"
+            android:layout_marginBottom="12dp"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/paymaya_sdk_activity_payment_button_copy_to_clipboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Copy Token to Clipboard"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/background_blue_stroke_white"
+            android:visibility="invisible"/>
+
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/paymaya_sdk_activity_payment_edit_text_payment_token"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:singleLine="true"
-        android:visibility="invisible"/>
-
-    <Button
-        android:id="@+id/paymaya_sdk_activity_payment_button_copy_to_clipboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Copy Token to Clipboard"
-        android:visibility="invisible"/>
 
 </LinearLayout>
