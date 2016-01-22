@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -127,12 +128,6 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void showDate() {
-        MonthYearPickerDialog pd = new MonthYearPickerDialog();
-        pd.setListener(this);
-        pd.show(getFragmentManager(), "MonthYearPickerDialog");
-    }
-
     private void showPaymentToken() {
         mEditTextPaymentToken.setVisibility(View.VISIBLE);
         mButtonCopyToClipboard.setVisibility(View.VISIBLE);
@@ -149,6 +144,10 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
         setContentView(R.layout.paymaya_sdk_activity_payment);
         ButterKnife.bind(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Log.i("SAMTEST", "" + PayMayaConfig.getEnvironment());
         mUuid = UUID.randomUUID().toString();
 
         hidePaymentToken();
@@ -165,5 +164,11 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
 
         mMonth = monthOfYear > 10 ? monthOfYear + "" : "0" + monthOfYear;
         mYear = year + "";
+    }
+
+    private void showDate() {
+        MonthYearPickerDialog pd = new MonthYearPickerDialog();
+        pd.setListener(this);
+        pd.show(getFragmentManager(), "MonthYearPickerDialog");
     }
 }
