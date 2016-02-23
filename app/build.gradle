@@ -20,7 +20,9 @@ android {
 }
 
 dependencies {
-    compile 'com.paymaya:sdk-android:0.6.0'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile(name: 'sdk-android-0.6.0-release', ext: 'aar')
+    //compile 'com.paymaya:sdk-android:0.6.0'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
@@ -28,5 +30,11 @@ dependencies {
     compile 'com.felipecsl.asymmetricgridview:library:2.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.etsy.android.grid:library:1.0.5'
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
 }
 

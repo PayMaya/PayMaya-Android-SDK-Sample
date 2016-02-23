@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,6 +20,13 @@ import com.paymaya.sdk.android.payment.PayMayaPaymentException;
 import com.paymaya.sdk.android.payment.models.Card;
 import com.paymaya.sdk.android.payment.models.PaymentToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import butterknife.Bind;
@@ -29,7 +35,12 @@ import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractActivity;
+import paymaya.com.paymayaandroidcheckout.models.Payments;
+import paymaya.com.paymayaandroidcheckout.request.AndroidClient;
+import paymaya.com.paymayaandroidcheckout.request.Request;
+import paymaya.com.paymayaandroidcheckout.request.Response;
 import paymaya.com.paymayaandroidcheckout.utils.DateUtils;
+import paymaya.com.paymayaandroidcheckout.utils.JsonUtils;
 import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
 
 /**
@@ -93,8 +104,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             protected PaymentToken doInBackground(Void... params) {
                 try {
                     return mPayMayaPayment.getPaymentToken();
-                }
-                catch(PayMayaPaymentException e) {
+                } catch (PayMayaPaymentException e) {
                     exceptionMessage = e.getMessage();
                     return null;
                 }
@@ -109,6 +119,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
                             Toast.LENGTH_SHORT).show();
                     mEditTextPaymentToken.setText(paymentTokenId);
                     showPaymentToken();
+                    new PaymentsTask().execute(paymentTokenId);
                     return;
                 }
 
@@ -116,7 +127,46 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
                         Toast.LENGTH_SHORT).show();
             }
         }.execute();
+    }
 
+    private class PaymentsTask extends AsyncTask<String, Void, Payments> {
+
+        @Override
+        protected Payments doInBackground(String... params) {
+            try {
+                String paymentTokenId = params[0];
+
+                URL url = new URL("http://192.168.226.220:1337/payments");
+                Request request = new Request(Request.Method.POST, url);
+
+                JSONObject parentRoot = new JSONObject();
+                parentRoot.put("paymentToken", paymentTokenId);
+
+                byte[] body = parentRoot.toString().getBytes();
+                request.setBody(body);
+
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                request.setHeaders(headers);
+
+                AndroidClient androidClient = new AndroidClient();
+                Response response = androidClient.call(request);
+
+                return JsonUtils.fromJSONPayments(response.getResponse());
+            } catch (JSONException je) {
+                return null;
+            } catch (PayMayaPaymentException ppe) {
+                return null;
+            } catch (MalformedURLException mue) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Payments payments) {
+            Toast.makeText(getApplicationContext(), "Status: " + payments.getStatus(), Toast
+                    .LENGTH_SHORT).show();
+        }
     }
 
     @OnClick(R.id.paymaya_sdk_activity_payment_button_copy_to_clipboard)
