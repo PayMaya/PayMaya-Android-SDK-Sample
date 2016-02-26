@@ -114,9 +114,9 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             protected void onPostExecute(PaymentToken paymentToken) {
                 if (null == exceptionMessage) {
                     final String paymentTokenId = paymentToken.getPaymentTokenId();
-                    Toast.makeText(getApplicationContext(), paymentTokenId +
-                                    "Date: " + paymentToken.getCreatedAt().toString(),
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), paymentTokenId +
+//                                    "Date: " + paymentToken.getCreatedAt().toString(),
+//                            Toast.LENGTH_SHORT).show();
                     mEditTextPaymentToken.setText(paymentTokenId);
                     showPaymentToken();
                     new PaymentsTask().execute(paymentTokenId);
@@ -136,7 +136,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             try {
                 String paymentTokenId = params[0];
 
-                URL url = new URL("http://192.168.226.220:1337/payments");
+                URL url = new URL("http://192.168.225.11:1337/payments");
                 Request request = new Request(Request.Method.POST, url);
 
                 JSONObject parentRoot = new JSONObject();

@@ -82,7 +82,7 @@
             android:id="@+id/paymaya_sdk_activity_payment_button_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Generate Payment Token"
+            android:text="Pay"
             android:textSize="18sp"
             android:textColor="@android:color/white"
             android:layout_gravity="center_horizontal"

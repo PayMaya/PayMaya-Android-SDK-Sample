@@ -107,6 +107,14 @@
             android:layout_height="50dp"
             android:text="Checkout"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/paymaya_checkout_fragment_user_information_button_payments"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Payments"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"/>
 
     </LinearLayout>

@@ -1,6 +1,7 @@
 package paymaya.com.paymayaandroidcheckout.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.paymaya.sdk.android.checkout.models.Contact;
 import butterknife.Bind;
 import butterknife.OnClick;
 import paymaya.com.paymayaandroidcheckout.R;
+import paymaya.com.paymayaandroidcheckout.activities.PaymentActivity;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractFragment;
 
 /**
@@ -57,6 +59,11 @@ public class CheckoutUserInformationFragment extends BaseAbstractFragment {
 
     @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_country_code)
     EditText mEditTextCountryCode;
+
+    @OnClick(R.id.paymaya_checkout_fragment_user_information_button_payments)
+    public void onButtonPaymentsClick() {
+        startActivity(new Intent(getActivity(), PaymentActivity.class));
+    }
 
     @OnClick(R.id.paymaya_checkout_fragment_user_information_button_checkout)
     public void onButtonCheckoutClick() {
