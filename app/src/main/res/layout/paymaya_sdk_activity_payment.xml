@@ -79,6 +79,17 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/paymaya_sdk_activity_payment_button_scan_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scan Credit Card"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/background_blue_stroke_white"/>
+
+        <Button
             android:id="@+id/paymaya_sdk_activity_payment_button_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

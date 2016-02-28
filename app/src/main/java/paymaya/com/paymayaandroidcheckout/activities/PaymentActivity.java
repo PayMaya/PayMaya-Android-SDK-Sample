@@ -3,6 +3,7 @@ package paymaya.com.paymayaandroidcheckout.activities;
 import android.app.DatePickerDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
 import paymaya.com.paymayaandroidcheckout.R;
 import paymaya.com.paymayaandroidcheckout.base.BaseAbstractActivity;
 import paymaya.com.paymayaandroidcheckout.models.Payments;
@@ -48,7 +51,7 @@ import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
  */
 public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog
         .OnDateSetListener {
-
+    private static final int MY_SCAN_REQUEST_CODE = 100;
     private static final String CLIENT_KEY = "pk-sHQWci2P410ppwFQvsi7IQCpHsIjafy74jrhYb8qfxu";
     // To test expired key, use the following:
     // private static final String CLIENT_KEY = "pk-OKkXqYUN1bkzgstdCRqJ6hlmzLUNYq6koeKBFVNxY7E";
@@ -73,6 +76,48 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
 
     @Bind(R.id.paymaya_sdk_activity_payment_button_copy_to_clipboard)
     Button mButtonCopyToClipboard;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.paymaya_sdk_activity_payment);
+        ButterKnife.bind(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        Log.i("SAMTEST", "" + PayMayaConfig.getEnvironment());
+        mUuid = UUID.randomUUID().toString();
+
+        hidePaymentToken();
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return this;
+    }
+
+    @OnClick(R.id.paymaya_sdk_activity_payment_button_scan_card)
+    public void onButtonScanCardClick() {
+        Intent scanIntent = new Intent(this, CardIOActivity.class);
+
+        // customize these values to suit your needs.
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true);
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, true);
+
+        startActivityForResult(scanIntent, MY_SCAN_REQUEST_CODE);
+
+
+    }
 
     @OnClick(R.id.paymaya_sdk_activity_payment_edit_text_date)
     public void onDateClicked() {
@@ -114,9 +159,6 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             protected void onPostExecute(PaymentToken paymentToken) {
                 if (null == exceptionMessage) {
                     final String paymentTokenId = paymentToken.getPaymentTokenId();
-//                    Toast.makeText(getApplicationContext(), paymentTokenId +
-//                                    "Date: " + paymentToken.getCreatedAt().toString(),
-//                            Toast.LENGTH_SHORT).show();
                     mEditTextPaymentToken.setText(paymentTokenId);
                     showPaymentToken();
                     new PaymentsTask().execute(paymentTokenId);
@@ -191,35 +233,6 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.paymaya_sdk_activity_payment);
-        ButterKnife.bind(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        Log.i("SAMTEST", "" + PayMayaConfig.getEnvironment());
-        mUuid = UUID.randomUUID().toString();
-
-        hidePaymentToken();
-    }
-
-    @Override
-    public AppCompatActivity getActivity() {
-        return this;
-    }
-
-    @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         mEditTextDate.setText(DateUtils.formatDate(year, monthOfYear, dayOfMonth));
 
@@ -231,5 +244,26 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
         MonthYearPickerDialog pd = new MonthYearPickerDialog();
         pd.setListener(this);
         pd.show(getFragmentManager(), "MonthYearPickerDialog");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == MY_SCAN_REQUEST_CODE) {
+
+            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+                mEditTextCardNumber.setText(scanResult.getFormattedCardNumber());
+
+                if (scanResult.isExpiryValid()) {
+                    mEditTextDate.setText(scanResult.expiryMonth + "/" + scanResult.expiryYear);
+                }
+
+                if (null != scanResult.cvv) {
+                    mEditTextCvc.setText(scanResult.cvv);
+                }
+            }
+        }
     }
 }
