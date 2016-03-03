@@ -60,13 +60,65 @@ public class CheckoutUserInformationFragment extends BaseAbstractFragment {
     @Bind(R.id.paymaya_checkout_fragment_user_information_edit_text_country_code)
     EditText mEditTextCountryCode;
 
+    public interface UserInformationFragmentListener {
+        void onButtonCheckout(Buyer buyer);
+
+        void onButtonPayments(Buyer buyer);
+    }
+
+    public static CheckoutUserInformationFragment getInstance() {
+        CheckoutUserInformationFragment checkoutUserInformationFragment = new CheckoutUserInformationFragment();
+        return checkoutUserInformationFragment;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
+        return inflater.inflate(R.layout.paymaya_checkout_fragment_user_information, container,
+                false);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mUserInformationFragmentListenerCallback = (UserInformationFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement " +
+                    "UserInformationFragmentListener");
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void initialize() {
+
+    }
+
     @OnClick(R.id.paymaya_checkout_fragment_user_information_button_payments)
     public void onButtonPaymentsClick() {
-        startActivity(new Intent(getActivity(), PaymentActivity.class));
+        /**
+         * Passed Buyer instance variable for Payments object
+         *
+         */
+        mUserInformationFragmentListenerCallback.onButtonPayments(getBuyer());
     }
 
     @OnClick(R.id.paymaya_checkout_fragment_user_information_button_checkout)
     public void onButtonCheckoutClick() {
+        /**
+         * Passed Buyer instance variable for Checkout object
+         *
+         */
+        mUserInformationFragmentListenerCallback.onButtonCheckout(getBuyer());
+    }
+
+    private Buyer getBuyer() {
         String first_name = mEditTextFirstName.getText().toString().trim();
         String last_name = mEditTextLastName.getText().toString().trim();
         String middle_name = mEditTextMiddleName.getText().toString().trim();
@@ -109,49 +161,7 @@ public class CheckoutUserInformationFragment extends BaseAbstractFragment {
         buyer.setBillingAddress(address);
         buyer.setShippingAddress(address);
 
-        /**
-         * Passed Buyer instance variable for Checkout object
-         *
-         */
-        mUserInformationFragmentListenerCallback.onButtonCheckout(buyer);
-    }
-
-    public interface UserInformationFragmentListener {
-        void onButtonCheckout(Buyer buyer);
-    }
-
-    public static CheckoutUserInformationFragment getInstance() {
-        CheckoutUserInformationFragment checkoutUserInformationFragment = new CheckoutUserInformationFragment();
-        return checkoutUserInformationFragment;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        return inflater.inflate(R.layout.paymaya_checkout_fragment_user_information, container,
-                false);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mUserInformationFragmentListenerCallback = (UserInformationFragmentListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement " +
-                    "UserInformationFragmentListener");
-        }
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void initialize() {
-
+        return buyer;
     }
 
     @Override

@@ -138,6 +138,25 @@ public class CheckoutActivity extends BaseAbstractActivity implements PayMayaChe
     }
 
     @Override
+    public void onButtonPayments(Buyer buyer) {
+        BigDecimal total = ((SampleApplication) getApplication()).getTotal();
+        /**
+         * Create TotalAmount object to be needed in creating Checkout object
+         * @params - (BigDecimal) total amount of item, (String) currency
+         */
+        TotalAmount totalAmount = new TotalAmount(total, CHECKOUT_CURRENCY);
+
+        Bundle paymentBundle = new Bundle();
+        paymentBundle.putParcelable(PaymentActivity.BUNDLE_PAYMENT_TOTAL_AMOUNT, totalAmount);
+        paymentBundle.putParcelable(PaymentActivity.BUNDLE_PAYMENT_BUYER, buyer);
+
+        Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra(PaymentActivity.EXTRAS_BUNDLE_PAYMENT, paymentBundle);
+
+        this.startActivity(intent);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         /**

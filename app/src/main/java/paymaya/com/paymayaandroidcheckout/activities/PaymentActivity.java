@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.paymaya.sdk.android.PayMayaConfig;
+import com.paymaya.sdk.android.checkout.models.Buyer;
+import com.paymaya.sdk.android.checkout.models.TotalAmount;
 import com.paymaya.sdk.android.payment.PayMayaPayment;
 import com.paymaya.sdk.android.payment.PayMayaPaymentException;
 import com.paymaya.sdk.android.payment.models.Card;
@@ -51,6 +57,11 @@ import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
  */
 public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog
         .OnDateSetListener {
+
+    public static final String BUNDLE_PAYMENT_TOTAL_AMOUNT = "total_amount";
+    public static final String BUNDLE_PAYMENT_BUYER = "buyer";
+    public static final String EXTRAS_BUNDLE_PAYMENT = "payment";
+
     private static final int MY_SCAN_REQUEST_CODE = 100;
     private static final String CLIENT_KEY = "pk-sHQWci2P410ppwFQvsi7IQCpHsIjafy74jrhYb8qfxu";
     // To test expired key, use the following:
@@ -61,6 +72,9 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
     private String mUuid;
     private String mMonth;
     private String mYear;
+
+    private Buyer mBuyer;
+    private TotalAmount mTotalAmount;
 
     @Bind(R.id.paymaya_sdk_activity_payment_edit_text_date)
     EditText mEditTextDate;
@@ -76,6 +90,11 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
 
     @Bind(R.id.paymaya_sdk_activity_payment_button_copy_to_clipboard)
     Button mButtonCopyToClipboard;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +114,19 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             }
         });
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra(EXTRAS_BUNDLE_PAYMENT);
+
+        mBuyer = bundle.getParcelable(BUNDLE_PAYMENT_BUYER);
+        mTotalAmount = bundle.getParcelable(BUNDLE_PAYMENT_TOTAL_AMOUNT);
+
         Log.i("SAMTEST", "" + PayMayaConfig.getEnvironment());
         mUuid = UUID.randomUUID().toString();
 
         hidePaymentToken();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -171,6 +199,47 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
         }.execute();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        mClient.connect();
+//        Action viewAction = Action.newAction(
+//                Action.TYPE_VIEW, // TODO: choose an action type.
+//                "Payment Page", // TODO: Define a title for the content shown.
+//                // TODO: If you have web page content that matches this app activity's content,
+//                // make sure this auto-generated web page URL is correct.
+//                // Otherwise, set the URL to null.
+//                Uri.parse("http://host/path"),
+//                // TODO: Make sure this auto-generated app deep link URI is correct.
+//                Uri.parse("android-app://paymaya.com.paymayaandroidcheckout" +
+//                        ".activities/http/host/path")
+//        );
+//        AppIndex.AppIndexApi.start(mClient, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        Action viewAction = Action.newAction(
+//                Action.TYPE_VIEW, // TODO: choose an action type.
+//                "Payment Page", // TODO: Define a title for the content shown.
+//                // TODO: If you have web page content that matches this app activity's content,
+//                // make sure this auto-generated web page URL is correct.
+//                // Otherwise, set the URL to null.
+//                Uri.parse("http://host/path"),
+//                // TODO: Make sure this auto-generated app deep link URI is correct.
+//                Uri.parse("android-app://paymaya.com.paymayaandroidcheckout.activities/http/host/path")
+//        );
+//        AppIndex.AppIndexApi.end(mClient, viewAction);
+//        mClient.disconnect();
+    }
+
     private class PaymentsTask extends AsyncTask<String, Void, Payments> {
 
         @Override
@@ -178,11 +247,36 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             try {
                 String paymentTokenId = params[0];
 
-                URL url = new URL("http://192.168.225.199:1337/payments");
+                URL url = new URL("http://192.168.1.6:1337/payments");
                 Request request = new Request(Request.Method.POST, url);
+
+                JSONObject totalAmountObject = new JSONObject();
+                totalAmountObject.put("amount", mTotalAmount.getValue());
+                totalAmountObject.put("currency", mTotalAmount.getCurrency());
+
+                JSONObject contactObject = new JSONObject();
+                contactObject.put("phone", mBuyer.getContact().getPhone());
+                contactObject.put("email", mBuyer.getContact().getEmail());
+
+                JSONObject billingAddressObject = new JSONObject();
+                billingAddressObject.put("line1", mBuyer.getBillingAddress().getLine1());
+                billingAddressObject.put("line2", mBuyer.getBillingAddress().getLine2());
+                billingAddressObject.put("city", mBuyer.getBillingAddress().getCity());
+                billingAddressObject.put("state", mBuyer.getBillingAddress().getState());
+                billingAddressObject.put("zipCode", mBuyer.getBillingAddress().getZipCode());
+                billingAddressObject.put("countryCode", mBuyer.getBillingAddress().getCountryCode());
+
+                JSONObject buyerObject = new JSONObject();
+                buyerObject.put("firstName", mBuyer.getFirstName());
+                buyerObject.put("middleName", mBuyer.getMiddleName());
+                buyerObject.put("lastName", mBuyer.getLastName());
+                buyerObject.put("contact", contactObject);
+                buyerObject.put("billingAddress", billingAddressObject);
 
                 JSONObject parentRoot = new JSONObject();
                 parentRoot.put("paymentToken", paymentTokenId);
+                parentRoot.put("totalAmount", totalAmountObject);
+                parentRoot.put("buyer", buyerObject);
 
                 byte[] body = parentRoot.toString().getBytes();
                 request.setBody(body);
