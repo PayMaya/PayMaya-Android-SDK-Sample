@@ -247,7 +247,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             try {
                 String paymentTokenId = params[0];
 
-                URL url = new URL("http://192.168.1.6:1337/payments");
+                URL url = new URL("http://52.77.55.105/payments");
                 Request request = new Request(Request.Method.POST, url);
 
                 JSONObject totalAmountObject = new JSONObject();
@@ -283,7 +283,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
 
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Bearer jCAoFKxG4U5Ez9gZj3jxOnyMKNlMDGg9pO/SUlkJNeiEOLCCx5g5Sv478G5fysou");
+                headers.put("Authorization", "Bearer K2cLQIbNrO9S/QQspectTYHx9tNFD/m0CGA5GNQWLVx+7e2TsqnynkyOet+yz4kF");
                 request.setHeaders(headers);
 
                 AndroidClient androidClient = new AndroidClient();
