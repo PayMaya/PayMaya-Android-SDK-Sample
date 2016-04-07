@@ -57,11 +57,12 @@ public class AndroidClient implements Client {
             }
 
             Log.d(TAG, "Status: " + code + " " + message);
+            Log.d(TAG, "response: " + response);
             Log.d(TAG, "Response: " + new JSONObject(response).toString(2));
             return new Response(code, response);
         } catch (IOException | JSONException e) {
             Log.e(TAG, e.getMessage());
-            return new Response(-1, "");
+            return new Response(-1, "error: " + e.getMessage());
         } finally {
             conn.disconnect();
         }
