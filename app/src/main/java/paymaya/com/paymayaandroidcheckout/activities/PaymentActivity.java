@@ -52,9 +52,11 @@ import paymaya.com.paymayaandroidcheckout.widgets.MonthYearPickerDialog;
 public class PaymentActivity extends BaseAbstractActivity implements DatePickerDialog
         .OnDateSetListener {
     private static final int MY_SCAN_REQUEST_CODE = 100;
-    private static final String CLIENT_KEY = "pk-sHQWci2P410ppwFQvsi7IQCpHsIjafy74jrhYb8qfxu";
+    private static final String CLIENT_KEY = "pk-N6TvoB4GP2kIgNz4OCchCTKYvY5kPQd2HDRSg8rPeQG";
     // To test expired key, use the following:
     // private static final String CLIENT_KEY = "pk-OKkXqYUN1bkzgstdCRqJ6hlmzLUNYq6koeKBFVNxY7E";
+
+    private static final String MERCHANT_BACKEND_URL = "http://52.77.55.105/payments";
 
     private PayMayaPayment mPayMayaPayment;
     private Card card;
@@ -135,7 +137,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
     public void onPaymentButtonClicked() {
         String number = mEditTextCardNumber.getText().toString().trim();
         String cvc = mEditTextCvc.getText().toString().trim();
-        Log.d("@onPaymentClick", "Month = " + mMonth
+        Log.i("@onPaymentClick", "Month = " + mMonth
                 + " Year = " + mYear
                 + " Number = " + number
                 + " CVC = " + cvc);
@@ -148,6 +150,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             @Override
             protected PaymentToken doInBackground(Void... params) {
                 try {
+                    Log.i("samtest", "mPayMayaPayment: " + mPayMayaPayment);
                     return mPayMayaPayment.getPaymentToken();
                 } catch (PayMayaPaymentException e) {
                     exceptionMessage = e.getMessage();
@@ -178,37 +181,50 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
             try {
                 String paymentTokenId = params[0];
 
-                URL url = new URL("http://192.168.225.199:1337/payments");
+                URL url = new URL(MERCHANT_BACKEND_URL);
                 Request request = new Request(Request.Method.POST, url);
 
                 JSONObject parentRoot = new JSONObject();
                 parentRoot.put("paymentToken", paymentTokenId);
+
+                Log.i("samtest", "parentRoot: " + parentRoot);
 
                 byte[] body = parentRoot.toString().getBytes();
                 request.setBody(body);
 
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Bearer jCAoFKxG4U5Ez9gZj3jxOnyMKNlMDGg9pO/SUlkJNeiEOLCCx5g5Sv478G5fysou");
+                // headers.put("Authorization", "Bearer jCAoFKxG4U5Ez9gZj3jxOnyMKNlMDGg9pO/SUlkJNeiEOLCCx5g5Sv478G5fysou");
+                headers.put("Authorization", "Bearer 3BI4dTaewiyfJGcc9Fzg+r2MM1qSc80LcRqxVpZTIoaRb2uIQ1SSRtfQWEsHeJud");
                 request.setHeaders(headers);
 
                 AndroidClient androidClient = new AndroidClient();
                 Response response = androidClient.call(request);
 
+                Log.i("samtest", "response : " + response.toString());
+                Log.i("samtest", "response.getCode() : " + response.getCode());
+                Log.i("samtest", "response.getResponse() : " + response.getResponse());
+
                 return JsonUtils.fromJSONPayments(response.getResponse());
             } catch (JSONException je) {
+                Log.e("samtest", "je: " + je.getMessage());
                 return null;
             } catch (PayMayaPaymentException ppe) {
+                Log.e("samtest", "ppe: " + ppe.getMessage());
                 return null;
             } catch (MalformedURLException mue) {
+                Log.e("samtest", "mue: " + mue.getMessage());
                 return null;
             }
         }
 
         @Override
         protected void onPostExecute(Payments payments) {
-            Toast.makeText(getApplicationContext(), "Status: " + payments.getStatus(), Toast
-                    .LENGTH_SHORT).show();
+            Log.i("samtest", "payments : " + payments);
+            if (payments != null) {
+                Toast.makeText(getApplicationContext(), "Status: " + payments.getState(), Toast
+                        .LENGTH_SHORT).show();
+            }
         }
     }
 
