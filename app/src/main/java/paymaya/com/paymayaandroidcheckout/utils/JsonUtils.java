@@ -20,8 +20,9 @@ public class JsonUtils {
 
         Payments payments = new Payments();
         payments.setId(root.getString("id"));
-        payments.setEnvironment(root.getString("environment"));
-        payments.setStatus(root.getString("status"));
+        payments.setEnvironment(root.getString("env"));
+        payments.setState(root.getString("state"));
+        payments.setType(root.getString("type"));
         payments.setPaymentTokenId(root.getString("paymentTokenId"));
         payments.setDescription(root.getString("description"));
 

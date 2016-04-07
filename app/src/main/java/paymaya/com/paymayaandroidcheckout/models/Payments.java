@@ -4,9 +4,11 @@ package paymaya.com.paymayaandroidcheckout.models;
  * Created by jadeantolingaa on 2/23/16.
  */
 public class Payments {
+
     private String id;
     private String environment;
-    private String status;
+    private String state;
+    private String type;
     private String paymentTokenId;
     private String description;
 
@@ -26,12 +28,20 @@ public class Payments {
         this.environment = environment;
     }
 
-    public String getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getPaymentTokenId() {
