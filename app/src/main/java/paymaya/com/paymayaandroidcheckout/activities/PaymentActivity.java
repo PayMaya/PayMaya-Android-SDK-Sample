@@ -318,7 +318,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
         protected void onPostExecute(Payments payments) {
             Log.i("samtest", "payments : " + payments);
             if (payments != null) {
-                Toast.makeText(getApplicationContext(), "Status: " + payments.getState(), Toast
+                Toast.makeText(getApplicationContext(), "Status: " + payments.getStatus(), Toast
                         .LENGTH_SHORT).show();
             }
         }

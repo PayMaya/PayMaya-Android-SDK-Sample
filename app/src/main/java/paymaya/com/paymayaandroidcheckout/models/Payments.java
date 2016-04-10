@@ -7,8 +7,7 @@ public class Payments {
 
     private String id;
     private String environment;
-    private String state;
-    private String type;
+    private String status;
     private String paymentTokenId;
     private String description;
 
@@ -28,20 +27,12 @@ public class Payments {
         this.environment = environment;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPaymentTokenId() {
