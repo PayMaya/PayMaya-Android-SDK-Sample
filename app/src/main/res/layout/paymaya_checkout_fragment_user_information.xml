@@ -55,8 +55,8 @@
             android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="juandelacruz@gmail.com"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:text="juandelacruz@gmail.com"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,24 +98,32 @@
             android:id="@+id/paymaya_checkout_fragment_user_information_edit_text_country_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PH"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:text="PH"/>
 
         <Button
             android:id="@+id/paymaya_checkout_fragment_user_information_button_checkout"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Checkout"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/background_blue_stroke_white"
+            android:text="Pay via Checkout"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/paymaya_checkout_fragment_user_information_button_payments"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Payments"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/background_blue_stroke_white"
+            android:text="Pay via Payments"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 

@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -80,9 +81,9 @@
 
         <Button
             android:id="@+id/paymaya_sdk_activity_payment_button_scan_card"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Scan Credit Card"
+            android:text="Scan Card"
             android:textSize="18sp"
             android:textColor="@android:color/white"
             android:layout_gravity="center_horizontal"
@@ -91,7 +92,7 @@
 
         <Button
             android:id="@+id/paymaya_sdk_activity_payment_button_pay"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Pay"
             android:textSize="18sp"
@@ -112,7 +113,7 @@
 
         <Button
             android:id="@+id/paymaya_sdk_activity_payment_button_copy_to_clipboard"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Copy Token to Clipboard"
