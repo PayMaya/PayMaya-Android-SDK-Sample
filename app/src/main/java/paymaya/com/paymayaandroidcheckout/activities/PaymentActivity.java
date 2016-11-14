@@ -163,10 +163,7 @@ public class PaymentActivity extends BaseAbstractActivity implements DatePickerD
     public void onPaymentButtonClicked() {
         String number = mEditTextCardNumber.getText().toString().trim();
         String cvc = mEditTextCvc.getText().toString().trim();
-        Log.d("@onPaymentClick", "Month = " + mMonth
-                + " Year = " + mYear
-                + " Number = " + number
-                + " CVC = " + cvc);
+
         card = new Card(number, mMonth, mYear, cvc);
         mPayMayaPayment = new PayMayaPayment(CLIENT_KEY, card);
 
